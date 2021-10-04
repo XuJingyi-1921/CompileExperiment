@@ -1,7 +1,7 @@
-[jobs.test-submit]
+[jobs.lexer]
 
 image = { source = "dockerfile", path = ".", tag = "test-example" }
 
 run = [
-  "java Add <$input",
+  "java Lexer <$input",
 ]
