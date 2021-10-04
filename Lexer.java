@@ -43,28 +43,6 @@ public class Lexer {
            String LINE= scanner.nextLine();
             CHAR=LINE.charAt(0);
            for (int i=0;i<LINE.length();){
-               if(Character.isLetter(CHAR)||CHAR=='_'){//非数字 可能是标识符或关键字
-                   TOKEN+=CHAR;
-                    while(true){
-                        i++;
-                        if(i>=LINE.length()){
-                            Lexer.printToken(TOKEN);
-                            // 已经读完这一行了
-                            break;
-                        }
-                        else{//没有读完
-                            CHAR=LINE.charAt(i);
-                            if(Character.isLetter(CHAR)||Character.isDigit(CHAR)||CHAR=='_'){
-                                TOKEN+=CHAR;
-                            }
-                            else{
-                                printToken(TOKEN);
-                                break;
-                            }
-                        }
-                    }
-                    TOKEN="";//初始化TOKEN
-               }
                if(Character.isDigit(CHAR)){//数字开头 可能是无符号整数
                    TOKEN+=CHAR;
                    while(true){
@@ -87,25 +65,45 @@ public class Lexer {
                    }
                    TOKEN="";//初始化TOKEN
                }
+               if(Character.isLetter(CHAR)||CHAR=='_'){//非数字 可能是标识符或关键字
+                   TOKEN+=CHAR;
+                    while(true){
+                        i++;
+                        if(i>=LINE.length()){
+                            Lexer.printToken(TOKEN);
+                            // 已经读完这一行了
+                            break;
+                        }
+                        else{//没有读完
+                            CHAR=LINE.charAt(i);
+                            if(Character.isLetter(CHAR)||Character.isDigit(CHAR)||CHAR=='_'){
+                                TOKEN+=CHAR;
+                            }
+                            else{
+                                printToken(TOKEN);
+                                break;
+                            }
+                        }
+                    }
+                    TOKEN="";//初始化TOKEN
+               }
                if (CHAR == '=') {
                    TOKEN+=CHAR;
-                   while (true){
                        i++;
                        if(i>=LINE.length()){
                            printToken(TOKEN);
-                           CHAR=0;//初始化CHAR 已经读完这一行了
                            break;
                        }
                        else{//没有读完
                            CHAR=LINE.charAt(i);
                            if(CHAR=='='){
                                TOKEN+=CHAR;
+                               printToken(TOKEN);
                            }
                            else{
                                printToken(TOKEN);
                            }
                        }
-                   }
                    TOKEN="";//初始化TOKEN
                }
                if(CHAR==';'||CHAR=='('||CHAR==')'||CHAR=='{'||CHAR=='}'
@@ -139,6 +137,6 @@ public class Lexer {
                }
            }
         }
-        
+
     }
 }
