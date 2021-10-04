@@ -135,7 +135,7 @@ public class Lexer {
                            CHAR=LINE.charAt(i);
                        }
                    }
-                   else if(chars.get(""+CHAR) == null && !Character.isDigit(CHAR) && !Character.isLetter(CHAR) && CHAR != '_'){
+                   else if(chars.get(""+CHAR) == null && !Character.isDigit(CHAR) && !Character.isLetter(CHAR) && CHAR != '_'&&CHAR>=32){
                        System.out.println("Err");
                        System.exit(0);
                    }
