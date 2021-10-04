@@ -89,23 +89,24 @@ public class Lexer {
                }
                if (CHAR == '=') {
                    TOKEN+=CHAR;
+                   while(true){
                        i++;
                        if(i>=LINE.length()){
-                           printToken(TOKEN);
-                           TOKEN="";
+                           Lexer.printToken(TOKEN);
+                           // 已经读完这一行了
                            break;
                        }
                        else{//没有读完
                            CHAR=LINE.charAt(i);
-                           if(CHAR=='='){
+                           if(CHAR=='='&&TOKEN.length()<=1){
                                TOKEN+=CHAR;
-                               printToken(TOKEN);
-                               i++;
                            }
                            else{
                                printToken(TOKEN);
+                               break;
                            }
                        }
+                   }
                    TOKEN="";//初始化TOKEN
                }
                if(CHAR==';'||CHAR=='('||CHAR==')'||CHAR=='{'||CHAR=='}'
