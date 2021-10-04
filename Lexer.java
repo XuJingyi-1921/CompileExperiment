@@ -17,7 +17,7 @@ public class Lexer {
                 }
         }
     }
-    public static int main(String[] args) {
+    public static void main(String[] args) {
         String TOKEN="";
         char CHAR;
         chars.put("if","If");
@@ -135,11 +135,10 @@ public class Lexer {
                }
                else if(chars.get(""+CHAR) == null && !Character.isDigit(CHAR) && !Character.isLetter(CHAR) && CHAR != '_'){
                    System.out.println("Err");
-                   return 0;
+                   System.exit(0);
                }
            }
         }
-
-        return 0;
+        
     }
 }
