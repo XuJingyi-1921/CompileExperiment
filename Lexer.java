@@ -92,6 +92,7 @@ public class Lexer {
                        i++;
                        if(i>=LINE.length()){
                            printToken(TOKEN);
+                           TOKEN="";
                            break;
                        }
                        else{//没有读完
@@ -99,6 +100,7 @@ public class Lexer {
                            if(CHAR=='='){
                                TOKEN+=CHAR;
                                printToken(TOKEN);
+                               i++;
                            }
                            else{
                                printToken(TOKEN);
