@@ -41,105 +41,106 @@ public class Lexer {
         Scanner scanner=new Scanner(System.in);
         while(scanner.hasNextLine()){
            String LINE= scanner.nextLine();
-            CHAR=LINE.charAt(0);
-           for (int i=0;i<LINE.length();){
-               if(Character.isDigit(CHAR)){//数字开头 可能是无符号整数
-                   TOKEN+=CHAR;
-                   while(true){
-                       i++;//指针向后移动一位
-                       if(i>=LINE.length()){
-                           printToken(TOKEN);
-                           // 已经读完这一行了
-                           break;
-                       }
-                       else{//没有读完
-                           CHAR=LINE.charAt(i);
-                           if(Character.isDigit(CHAR)){
-                               TOKEN+=CHAR;
-                           }
-                           else{
+           if(LINE.length()>0){
+               CHAR=LINE.charAt(0);
+               for (int i=0;i<LINE.length();){
+                   if(Character.isDigit(CHAR)){//数字开头 可能是无符号整数
+                       TOKEN+=CHAR;
+                       while(true){
+                           i++;//指针向后移动一位
+                           if(i>=LINE.length()){
                                printToken(TOKEN);
+                               // 已经读完这一行了
                                break;
                            }
+                           else{//没有读完
+                               CHAR=LINE.charAt(i);
+                               if(Character.isDigit(CHAR)){
+                                   TOKEN+=CHAR;
+                               }
+                               else{
+                                   printToken(TOKEN);
+                                   break;
+                               }
+                           }
                        }
+                       TOKEN="";//初始化TOKEN
                    }
-                   TOKEN="";//初始化TOKEN
-               }
-               if(Character.isLetter(CHAR)||CHAR=='_'){//非数字 可能是标识符或关键字
-                   TOKEN+=CHAR;
-                    while(true){
-                        i++;
-                        if(i>=LINE.length()){
-                            Lexer.printToken(TOKEN);
-                            // 已经读完这一行了
-                            break;
-                        }
-                        else{//没有读完
-                            CHAR=LINE.charAt(i);
-                            if(Character.isLetter(CHAR)||Character.isDigit(CHAR)||CHAR=='_'){
-                                TOKEN+=CHAR;
-                            }
-                            else{
-                                printToken(TOKEN);
-                                break;
-                            }
-                        }
-                    }
-                    TOKEN="";//初始化TOKEN
-               }
-               if (CHAR == '=') {
-                   TOKEN+=CHAR;
-                   while(true){
+                   if(Character.isLetter(CHAR)||CHAR=='_'){//非数字 可能是标识符或关键字
+                       TOKEN+=CHAR;
+                       while(true){
+                           i++;
+                           if(i>=LINE.length()){
+                               Lexer.printToken(TOKEN);
+                               // 已经读完这一行了
+                               break;
+                           }
+                           else{//没有读完
+                               CHAR=LINE.charAt(i);
+                               if(Character.isLetter(CHAR)||Character.isDigit(CHAR)||CHAR=='_'){
+                                   TOKEN+=CHAR;
+                               }
+                               else{
+                                   printToken(TOKEN);
+                                   break;
+                               }
+                           }
+                       }
+                       TOKEN="";//初始化TOKEN
+                   }
+                   if (CHAR == '=') {
+                       TOKEN+=CHAR;
+                       while(true){
+                           i++;
+                           if(i>=LINE.length()){
+                               Lexer.printToken(TOKEN);
+                               // 已经读完这一行了
+                               break;
+                           }
+                           else{//没有读完
+                               CHAR=LINE.charAt(i);
+                               if(CHAR=='='&&TOKEN.length()<=1){
+                                   TOKEN+=CHAR;
+                               }
+                               else{
+                                   printToken(TOKEN);
+                                   break;
+                               }
+                           }
+                       }
+                       TOKEN="";//初始化TOKEN
+                   }
+                   if(CHAR==';'||CHAR=='('||CHAR==')'||CHAR=='{'||CHAR=='}'
+                           ||CHAR=='+'||CHAR=='*'||CHAR=='/'||CHAR=='<'||CHAR=='>'){
+                       TOKEN+=CHAR;
                        i++;
                        if(i>=LINE.length()){
-                           Lexer.printToken(TOKEN);
-                           // 已经读完这一行了
+                           printToken(TOKEN);
+                           TOKEN="";
                            break;
                        }
                        else{//没有读完
                            CHAR=LINE.charAt(i);
-                           if(CHAR=='='&&TOKEN.length()<=1){
-                               TOKEN+=CHAR;
-                           }
-                           else{
-                               printToken(TOKEN);
-                               break;
-                           }
+                           printToken(TOKEN);
+                           TOKEN="";
                        }
                    }
-                   TOKEN="";//初始化TOKEN
-               }
-               if(CHAR==';'||CHAR=='('||CHAR==')'||CHAR=='{'||CHAR=='}'
-                       ||CHAR=='+'||CHAR=='*'||CHAR=='/'||CHAR=='<'||CHAR=='>'){
-                   TOKEN+=CHAR;
-                   i++;
-                   if(i>=LINE.length()){
-                       printToken(TOKEN);
-                       TOKEN="";
-                       break;
+                   if(CHAR==' '){
+                       i++;
+                       if(i>=LINE.length()){
+                           TOKEN="";
+                           break;
+                       }
+                       else{//没有读完
+                           CHAR=LINE.charAt(i);
+                       }
                    }
-                   else{//没有读完
-                       CHAR=LINE.charAt(i);
-                       printToken(TOKEN);
-                       TOKEN="";
+                   else if(chars.get(""+CHAR) == null && !Character.isDigit(CHAR) && !Character.isLetter(CHAR) && CHAR != '_'){
+                       System.out.println("Err");
+                       System.exit(0);
                    }
-               }
-               if(CHAR==' '){
-                   i++;
-                   if(i>=LINE.length()){
-                       TOKEN="";
-                       break;
-                   }
-                   else{//没有读完
-                       CHAR=LINE.charAt(i);
-                   }
-               }
-               else if(chars.get(""+CHAR) == null && !Character.isDigit(CHAR) && !Character.isLetter(CHAR) && CHAR != '_'){
-                   System.out.println("Err");
-                   System.exit(0);
                }
            }
         }
-
     }
 }
