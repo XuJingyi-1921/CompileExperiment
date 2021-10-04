@@ -125,7 +125,7 @@ public class Lexer {
                            TOKEN="";
                        }
                    }
-                   if(CHAR==' '){
+                   if(CHAR==' '||CHAR==9||CHAR==10||CHAR==11){
                        i++;
                        if(i>=LINE.length()){
                            TOKEN="";
