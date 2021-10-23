@@ -3,5 +3,5 @@
 image = { source = "dockerfile", path = ".", tag = "lab1" }
 
 run = [
-  "java ./* $input $ir",
+  "java ./Lexer BlockAnalyzer Main  $input $ir",
 ]
