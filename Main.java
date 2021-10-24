@@ -31,7 +31,7 @@ public class Main {
                         //分析语句块代码
                         BlockAnalyzer.blockAnalyze(i,vector);
                         for(int l=0;l<res.size();l++){
-                            System.out.println(res.elementAt(l));
+                            System.out.print(res.elementAt(l));
                         }
                         System.exit(0);
 
