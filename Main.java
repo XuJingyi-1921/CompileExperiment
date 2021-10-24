@@ -1,9 +1,10 @@
+import java.io.FileNotFoundException;
 import java.util.Vector;
 
 public class Main {
     public static Vector<String> res = new Vector<>();
     public static Vector<String> vector = new Vector<>();
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Lexer.lexer(vector);//词法分析，将全部token存入向量中。
         if(vector.size()<6){
             System.exit(-1);

@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Vector;
@@ -22,7 +24,7 @@ public class Lexer {
                 }
         }
     }
-    public static void lexer(Vector<String>vector) {
+    public static void lexer(Vector<String>vector) throws FileNotFoundException {
         String TOKEN="";
         char CHAR;
         chars.put("if","If");
