@@ -22,7 +22,7 @@ public class Lexer {
                 }
         }
     }
-    public static Vector<String> lexer(Vector<String>vector) {
+    public static void lexer(Vector<String>vector) {
         String TOKEN="";
         char CHAR;
         chars.put("if","If");
@@ -147,6 +147,5 @@ public class Lexer {
                }
            }
         }
-    return vector;
     }
 }
