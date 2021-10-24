@@ -48,7 +48,9 @@ public class Lexer {
         chars.put("<","Lt");
         chars.put(">","Gt");
         chars.put("==","Eq");
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner=new Scanner(System.in);/*
+        //
+        */
         while(scanner.hasNextLine()){
            String LINE= scanner.nextLine();
            LINE+="  ";
@@ -80,16 +82,19 @@ public class Lexer {
                    // System.out.println(LINE2);
                     LINE=LINE0+LINE2;
                 }//检测到多行注释在一行的情况
-                else flag=1;
+                else {
+                    LINE=LINE0;
+                    flag = 1;
+                }
             }
-            else if(flag==1&&LINE.split("\\*/",2).length==2) {
+            else if(flag==1&&LINE.split("\\*/").length>1) {
                 if(LINE.charAt(LINE.length()-1)=='/'){
                     LINE+=" ";
                 }
                 LINE = LINE.substring(LINE.split("\\*/")[0].length()+2);
                 flag = 0;
             }
-           if(LINE.length()>0){
+           if(LINE.length()>0&&flag==0){
                //System.out.println(LINE);
                CHAR=LINE.charAt(0);
                for (int i=0;i<LINE.length();){
