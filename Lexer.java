@@ -45,7 +45,7 @@ public class Lexer {
         chars.put("<","Lt");
         chars.put(">","Gt");
         chars.put("==","Eq");
-        Scanner scanner=new Scanner(new FileReader("in.txt"));
+        Scanner scanner=new Scanner(System.in);
         while(scanner.hasNextLine()){
            String LINE= scanner.nextLine();
             System.out.println(LINE);
