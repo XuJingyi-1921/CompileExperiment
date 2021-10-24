@@ -7,23 +7,23 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Lexer.lexer(vector);//词法分析，将全部token存入向量中。
         if(vector.size()<6){
-            System.exit(-1);
+            System.exit(0);
         }
         else{
             int i=0;
             if(!vector.elementAt(i).equals("Ident(int)")){
-                System.exit(-1);
+                System.exit(0);
             }
             else{
                 i++;
                 if(!vector.elementAt(i).equals("Ident(main)")){
-                    System.exit(-1);
+                    System.exit(0);
                 }
                 else{
                     i++;
                     if(!(vector.elementAt(i).equals("LPar")&&
                             vector.elementAt(i+1).equals("RPar"))){
-                        System.exit(-1);
+                        System.exit(0);
                     }
                     else{
                         i+=2;
