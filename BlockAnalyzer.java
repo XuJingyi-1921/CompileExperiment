@@ -4,13 +4,13 @@ public class BlockAnalyzer {
     public static int blockAnalyze(int i, Vector<String> vector){
         if(i+3<vector.size()){
             if(!vector.elementAt(i).equals("LBrace")){//{
-                System.exit(0);
+                System.exit(-1);
             }
             else{//analyze the return sentence.
                 i++;
                 Main.res.add("{");
                 if(!vector.elementAt(i).equals("Return")){
-                    System.exit(0);
+                    System.exit(-1);
                 }
                 else{
                     i++;
@@ -20,7 +20,7 @@ public class BlockAnalyzer {
                         Main.res.add("ret i32 "+dec);
                         i+=2;
                         if(!vector.elementAt(i).equals("Semicolon")){
-                            System.exit(0);
+                            System.exit(-1);
                         }
                         else{
                             i++;
@@ -29,7 +29,7 @@ public class BlockAnalyzer {
                                 i++;
                                 return i;
                             }
-                            else System.exit(0);
+                            else System.exit(-1);
                         }
                     }
                     else if(vector.elementAt(i).matches("Number[(]0[0-9]+[)]")){//octalNum
@@ -38,7 +38,7 @@ public class BlockAnalyzer {
                         Main.res.add("ret i32 "+dec);
                         i++;
                         if(!vector.elementAt(i).equals("Semicolon")){
-                            System.exit(0);
+                            System.exit(-1);
                         }
                         else{
                             i++;
@@ -47,7 +47,7 @@ public class BlockAnalyzer {
                                 Main.res.add("}");
                                 return i;
                             }
-                            else System.exit(0);
+                            else System.exit(-1);
                         }
                     }
                     else if(vector.elementAt(i).matches("Number[(][0-9]+[)]")) {//decimal
@@ -55,7 +55,7 @@ public class BlockAnalyzer {
                         Main.res.add("ret i32 "+vector.elementAt(i).substring(7,vector.elementAt(i).length()-1));
                         i++;
                         if(!vector.elementAt(i).equals("Semicolon")){
-                            System.exit(0);
+                            System.exit(-1);
                         }
                         else{
                             i++;
@@ -64,17 +64,17 @@ public class BlockAnalyzer {
                                 Main.res.add("}");
                                 return i;
                             }
-                            else System.exit(0);
+                            else System.exit(-1);
                         }
                     }
                     else {
-                        System.exit(0);
+                        System.exit(-1);
                     }
                 }
             }
         }
         else {
-           System.exit(0);
+           System.exit(-1);
         }
         return i;
     }

@@ -48,7 +48,7 @@ public class Lexer {
         Scanner scanner=new Scanner(System.in);
         while(scanner.hasNextLine()){
            String LINE= scanner.nextLine();
-            System.out.println(LINE);
+           // System.out.println(LINE);
            if(LINE.length()>0){
                CHAR=LINE.charAt(0);
                for (int i=0;i<LINE.length();){
