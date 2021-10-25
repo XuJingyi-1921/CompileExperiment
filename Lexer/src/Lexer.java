@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Hashtable;
 import java.util.Scanner;
 import java.util.Vector;
@@ -22,9 +24,10 @@ public class Lexer {
                 }
         }
     }
-    public static Vector<String> lexer(Vector<String>vector) {
+    public static void lexer(Vector<String>vector) throws FileNotFoundException {
         String TOKEN="";
         char CHAR;
+        int flag=0;
         chars.put("if","If");
         chars.put("else","Else");
         chars.put("while","While");
@@ -38,14 +41,36 @@ public class Lexer {
         chars.put("{","LBrace");
         chars.put("}","RBrace");
         chars.put("+","Plus");
+        chars.put("-","Minus");
         chars.put("*","Mult");
         chars.put("/","Div");
+        chars.put("%","Mod");
         chars.put("<","Lt");
         chars.put(">","Gt");
         chars.put("==","Eq");
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner=new Scanner(new FileReader("in.txt"));
         while(scanner.hasNextLine()){
-           String LINE= scanner.nextLine();
+           StringBuilder LINE= new StringBuilder(scanner.nextLine());
+           StringBuilder LINE1=new StringBuilder();
+           LINE.append("   ");
+           for(int i=0;i<LINE.length();i++){
+               if(flag==0){
+                   if(LINE.charAt(i)=='/'&&LINE.charAt(i+1)=='*'){//多行注释状态开始
+                       flag+=1;
+                       i+=2;
+                   } else if (LINE.charAt(i) == '/' && LINE.charAt(i + 1) == '/') {//先遇见单行注释
+                       break;
+                   }
+               }
+               if(flag>0){
+                   if(LINE.charAt(i)=='*'&&LINE.charAt(i+1)=='/'){
+                   flag--;
+                   i+=2;
+                   }
+               }
+               if(flag==0) LINE1.append(LINE.charAt(i));
+           }
+            LINE=LINE1;
            if(LINE.length()>0){
                CHAR=LINE.charAt(0);
                for (int i=0;i<LINE.length();){
@@ -116,7 +141,7 @@ public class Lexer {
                        TOKEN="";//初始化TOKEN
                    }
                    if(CHAR==';'||CHAR=='('||CHAR==')'||CHAR=='{'||CHAR=='}'
-                           ||CHAR=='+'||CHAR=='*'||CHAR=='/'||CHAR=='<'||CHAR=='>'){
+                           ||CHAR=='+'||CHAR=='-'||CHAR=='*'||CHAR=='/'||CHAR=='%'||CHAR=='<'||CHAR=='>'){
                        TOKEN+=CHAR;
                        i++;
                        if(i>=LINE.length()){
@@ -147,6 +172,8 @@ public class Lexer {
                }
            }
         }
-    return vector;
+        if(flag==1){
+            System.exit(-1);
+        }
     }
 }

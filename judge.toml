@@ -1,7 +1,7 @@
 [jobs.lab1]
 
-image = { source = "dockerfile", path = ".", tag = "lab1" }
+image = { source = "dockerfile", path = "." }
 
 run = [
-  "java ./Lexer/out/production/Lexer/Main* $input $ir",
+  "java Main <$input >$ir"
 ]
