@@ -27,8 +27,6 @@ public class Lexer {
     public static void lexer(Vector<String>vector) throws FileNotFoundException {
         String TOKEN="";
         char CHAR;
-        String LINE0 = "";
-        String LINE1 = "";
         int flag=0;
         chars.put("if","If");
         chars.put("else","Else");
@@ -51,48 +49,26 @@ public class Lexer {
         Scanner scanner=new Scanner(System.in);
         while(scanner.hasNextLine()){
            StringBuilder LINE= new StringBuilder(scanner.nextLine());
-           LINE.append("  ");
-           for(int i=0;i<LINE.length()-1;i++){
-               if (LINE.charAt(i) == '/' ) {
-                       if(LINE.charAt(i+1)=='*') {
-                           if(LINE.length()==i+2) LINE.append(" ");
-                           else{
-                               for(int l=i;l<LINE.length()-2;l++){
-                                   if(LINE.charAt(l)=='*'&&LINE.charAt(l+1)=='/'){
-                                       LINE = new StringBuilder(LINE.substring(0, i) + LINE.substring(l + 2));
-                                       break;
-                                   }
-                               }
-                           }
-                       }
-                       else if(LINE.charAt(i+1)=='/') {
-                               LINE = new StringBuilder(LINE.toString().split("//")[0]);
-                           break;
-                       }
+           StringBuilder LINE1=new StringBuilder();
+           LINE.append("   ");
+           for(int i=0;i<LINE.length();i++){
+               if(flag==0){
+                   if(LINE.charAt(i)=='/'&&LINE.charAt(i+1)=='*'){//多行注释状态开始
+                       flag+=1;
+                       i+=2;
+                   } else if (LINE.charAt(i) == '/' && LINE.charAt(i + 1) == '/') {//先遇见单行注释
+                       break;
+                   }
                }
-            }
-            if(flag==0&& LINE.toString().split("/\\*").length>1){//检测到多行注释开始
-                LINE0 = LINE.toString().split("/\\*")[0];
-                LINE1 =LINE.substring(LINE0.length()+2);
-                if(LINE1.split("\\*/",2).length>1){
-                    if(LINE1.charAt(LINE1.length()-1)=='/'){
-                        LINE1+=" ";
-                    }
-                    String LINE2=LINE1.substring(LINE1.split("\\*/")[0].length()+2);
-                    LINE = new StringBuilder(LINE0 + LINE2);
-                }//检测到多行注释在一行的情况
-                else {
-                    LINE = new StringBuilder(LINE0);
-                    flag = 1;
-                }
-            }
-            else if(flag==1&& LINE.toString().split("\\*/").length>1) {
-                if(LINE.charAt(LINE.length()-1)=='/'){
-                    LINE.append(" ");
-                }
-                LINE = new StringBuilder(LINE.substring(LINE.toString().split("\\*/")[0].length() + 2));
-                flag = 0;
-            }
+               if(flag>0){
+                   if(LINE.charAt(i)=='*'&&LINE.charAt(i+1)=='/'){
+                   flag--;
+                   i+=2;
+                   }
+               }
+               if(flag==0) LINE1.append(LINE.charAt(i));
+           }
+            LINE=LINE1;
            if(LINE.length()>0){
                CHAR=LINE.charAt(0);
                for (int i=0;i<LINE.length();){
