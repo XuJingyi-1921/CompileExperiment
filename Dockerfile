@@ -1,4 +1,6 @@
-FROM openjdk:12
-WORKDIR /app/
+FROM openjdk:8
 COPY ./* /app/
-RUN javac ./Lexer/src/*.java
+WORKDIR /app/
+RUN mkdir output
+RUN javac -d ./output ./*.java
+WORKDIR /app/output
