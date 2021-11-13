@@ -27,7 +27,8 @@ public class ExpAnalyzer {//需要修改
                       vector.elementAt(i-1).equals("Return")||
                       vector.elementAt(i-1).equals("Div")){
                   if(vector.elementAt(i).equals("Minus")){
-                      flag*=-1;
+                      stringVector.add("-1");
+                      stringVector.add("*");
                   }
                       vector.removeElementAt(i);
                   continue;
