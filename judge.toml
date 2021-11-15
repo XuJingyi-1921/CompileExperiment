@@ -1,4 +1,4 @@
-[jobs.lexer]
+[jobs.lab2]
 
 image = { source = "dockerfile", path = ".", tag = "test-example" }
 
