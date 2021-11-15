@@ -3,5 +3,5 @@
 image = { source = "dockerfile", path = ".", tag = "test-example" }
 
 run = [
-  "java Lexer <$input",
+  "java Main <$input",
 ]
