@@ -15,6 +15,12 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
     public static int calculate(Vector<String>vector){
         Stack<String>number=new Stack<>();//操作数栈
         Stack<String>op=new Stack<>();//运算符栈
+        int count=0;
+        for(int i=0;i< vector.size();i++){
+            if(vector.elementAt(i).equals("(")) count++;
+            else if (vector.elementAt(i).equals(")")) count--;
+        }
+        if(count!=0)System.exit(-1);
         for(int i=0;i<vector.size();i++){
             if(vector.elementAt(i).matches("^-?[0-9]\\d*$")){//数字，直接入栈
                 number.push(vector.elementAt(i));
