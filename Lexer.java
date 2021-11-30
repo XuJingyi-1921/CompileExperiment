@@ -49,7 +49,7 @@ public class Lexer {
         chars.put("<","Lt");
         chars.put(">","Gt");
         chars.put("==","Eq");
-        Scanner scanner=new Scanner(System.in());
+        Scanner scanner=new Scanner(System.in);
         while(scanner.hasNextLine()){
            StringBuilder LINE= new StringBuilder(scanner.nextLine());
            StringBuilder LINE1=new StringBuilder();
