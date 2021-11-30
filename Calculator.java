@@ -48,37 +48,39 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                         case "/":
                         case "%":
                             while (!op.isEmpty() && !op.peek().equals("(") && !op.peek().equals("+") && !op.peek().equals("-")) {
-                                int a, b, c;
+                                String a, b, c;
                                 switch (op.peek()) {
                                     case "*":
                                         op.pop();
                                         if (number.size() < 2) {
                                             System.exit(-1);
                                         }
-                                        b = Integer.parseInt(number.pop());
-                                        a = Integer.parseInt(number.pop());
-                                        c = a * b;
-                                        number.push(Integer.toString(c));
+                                        b = parser(number.pop());
+                                        a = parser(number.pop());
+                                        Main.res.add("%" + Main.counter + " = mul " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
+                                        number.push("%" + Main.counter);//计算完的值压栈
                                         break;
                                     case "/":
                                         op.pop();
                                         if (number.size() < 2) {
                                             System.exit(-1);
                                         }
-                                        b = Integer.parseInt(number.pop());
-                                        a = Integer.parseInt(number.pop());
-                                        c = a / b;
-                                        number.push(Integer.toString(c));
+                                        b = parser(number.pop());
+                                        a = parser(number.pop());
+                                        Main.res.add("%" + Main.counter + " = sdiv " + a + " , " + b);//eg. %2 = sdiv i32 %1 , 10
+                                        number.push("%" + Main.counter);//计算完的值压栈
+                                        Main.counter++;
                                         break;
                                     case "%":
                                         op.pop();
                                         if (number.size() < 2) {
                                             System.exit(-1);
                                         }
-                                        b = Integer.parseInt(number.pop());
-                                        a = Integer.parseInt(number.pop());
-                                        c = a % b;
-                                        number.push(Integer.toString(c));
+                                        b = parser(number.pop());
+                                        a = parser(number.pop());
+                                        Main.res.add("%" + Main.counter + " = srem " + a + " , " + b);//eg. %2 = srem i32 %1 , 10
+                                        number.push("%" + Main.counter);//计算完的值压栈
+                                        Main.counter++;
                                         break;
                                 }
                             }
@@ -108,7 +110,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
         if (number.size() != 1) {
             System.exit(-1);
         }
-        return number.peek();
+        return parser(number.peek());
     }
 
     private static void calculateStack(Stack<String> number, Stack<String> op) {

@@ -32,7 +32,7 @@ public class DeclareAnalyzer {
                     String val = ExpAnalyzer.expAnalyze(vector);
                     //ident.setValue(val);
                     Main.res.add("%"+Main.counter+" = alloca i32");
-                    Main.res.add("store i32 "+val+" , i32* %"+Main.counter);
+                    Main.res.add("store "+val+" , i32* %"+Main.counter);
                     ident.setNo(Main.counter);
                     Main.counter++;
                     Main.identList.add(ident);

@@ -13,7 +13,7 @@ public class Assigner {
                 if(ident.isConst) System.exit(-4);
                 else {
                     Main.res.add("%"+Main.counter+" = alloca i32");
-                    Main.res.add("store i32 "+res+" i32* %"+Main.counter);
+                    Main.res.add("store "+res+", i32* %"+Main.counter);
                     ident.setNo(Main.counter);
                     Main.counter++;
                 }
