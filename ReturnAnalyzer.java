@@ -1,15 +1,16 @@
 import java.util.Vector;
 
 public class ReturnAnalyzer {
-    public static int returnAnalyze(int i, Vector<String>vector){
+    public static void returnAnalyze(Vector<String>vector){
         //analyze the return sentence.
-        i++;
-        if(!vector.elementAt(i).equals("Return")){
-            System.exit(-1);
+        Main.pointer++;
+        String res= ExpAnalyzer.expAnalyze(vector);
+        Main.res.add("ret i32 " + res);
+        if(!vector.elementAt(Main.pointer).equals("Semicolon")){
+            System.exit(-2);
         }
-        else{
-           i=ExpAnalyzer.expAnalyze(i,vector);
+        else {
+            Main.pointer++;
         }
-        return i;
     }
 }

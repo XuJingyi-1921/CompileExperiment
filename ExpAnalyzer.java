@@ -1,69 +1,79 @@
 import java.util.Vector;
 
 public class ExpAnalyzer {//需要修改
-    public static int expAnalyze(int i, Vector<String> vector){
-        i++;
-        int flag=1;
-        int res;
-        Vector<String>stringVector=new Vector<>();
-        int pointer=i;//处理过+/-后再次分析，记录初始的i值
-      while(i< vector.size()){
-          if(vector.elementAt(i).equals("Semicolon")){//一条语句结束
-              i++;
-              break;
-          }
-          else if(vector.elementAt(i).equals("Plus")||vector.elementAt(i).equals("Minus")){// +/-
-              if (vector.elementAt(i - 1).equals("RPar") ||
-                      vector.elementAt(i - 1).charAt(0) == 'N' ||
-                      vector.elementAt(i - 1).charAt(0) == 'I') {
-                    if(vector.elementAt(i).equals("Plus")) stringVector.add("+");
+
+    public static String expAnalyze(Vector<String> vector) {
+        int flag = 1;
+        String res;
+        Vector<String> stringVector = new Vector<>();
+        //处理过+/-后再次分析，记录初始的i值
+        while (Main.pointer < vector.size()) {
+            if (vector.elementAt(Main.pointer).equals("Semicolon")) {//一条语句结束
+                break;
+            } else if (vector.elementAt(Main.pointer).equals("Quote")) {
+                break;
+            } else if (vector.elementAt(Main.pointer).equals("Plus") || vector.elementAt(Main.pointer).equals("Minus")) {// +/-
+                if (vector.elementAt(Main.pointer - 1).equals("RPar") ||
+                        vector.elementAt(Main.pointer - 1).charAt(0) == 'N' ||
+                        vector.elementAt(Main.pointer - 1).charAt(0) == 'I') {
+                    if (vector.elementAt(Main.pointer).equals("Plus")) stringVector.add("+");
                     else stringVector.add("-");
-              }
-              else if(vector.elementAt(i-1).equals("LPar")||
-                      vector.elementAt(i-1).equals("Plus")||
-                      vector.elementAt(i-1).equals("Minus")||
-                      vector.elementAt(i-1).equals("Mult")||
-                      vector.elementAt(i-1).equals("Mod")||
-                      vector.elementAt(i-1).equals("Return")||
-                      vector.elementAt(i-1).equals("Div")){
-                  if(vector.elementAt(i).equals("Minus")){
-                      flag*=-1;
-                  }
-                      vector.removeElementAt(i);
-                  continue;
-              }
-              else{
-                  System.exit(-1);
-              }
-          }
-          else if(vector.elementAt(i).equals("LPar")){
-              stringVector.add("(");
-          }
-          else if(vector.elementAt(i).equals("RPar")){
-              stringVector.add(")");
-          }
-          else if(vector.elementAt(i).equals("Mult")){
-              stringVector.add("*");
-          }
-          else if(vector.elementAt(i).equals("Div")){
-              stringVector.add("/");
-          }
-          else if(vector.elementAt(i).equals("Mod")){
-              stringVector.add("%");
-          }
-          else if(vector.elementAt(i).charAt(0)=='N'){//Number
-              //numberAnalyze
-              i=NumberAnalyzer.numberAnalyze(i,flag,vector,stringVector);
-              flag=1;
-          }
-          i++;
-      }
-      //接下来是表达式求值 表达式已经存在stringVector里了
-//        for(int ii=0;ii<stringVector.size();ii++){
-//            System.out.print(stringVector.elementAt(ii)+" ");
-//        }
-        res=Calculator.calculate(stringVector);
-        Main.res.add("ret i32 "+res);
-        return i;//i已经是分号后面的字符
+                } else if (vector.elementAt(Main.pointer - 1).equals("LPar") ||
+                        vector.elementAt(Main.pointer - 1).equals("Plus") ||
+                        vector.elementAt(Main.pointer - 1).equals("Minus") ||
+                        vector.elementAt(Main.pointer - 1).equals("Mult") ||
+                        vector.elementAt(Main.pointer - 1).equals("Mod") ||
+                        vector.elementAt(Main.pointer - 1).equals("Return") ||
+                        vector.elementAt(Main.pointer - 1).equals("Div")) {
+                    if (vector.elementAt(Main.pointer).equals("Minus")) {
+                        stringVector.add("-1");
+                        stringVector.add("*");
+                    }
+                    vector.removeElementAt(Main.pointer);
+                    continue;
+                } else {
+                    System.exit(-1);
+                }
+            } else if (vector.elementAt(Main.pointer).equals("LPar")) {
+                stringVector.add("(");
+            } else if (vector.elementAt(Main.pointer).equals("RPar")) {
+                stringVector.add(")");
+            } else if (vector.elementAt(Main.pointer).equals("Mult")) {
+                stringVector.add("*");
+            } else if (vector.elementAt(Main.pointer).equals("Div")) {
+                stringVector.add("/");
+            } else if (vector.elementAt(Main.pointer).equals("Mod")) {
+                stringVector.add("%");
+            } else if (vector.elementAt(Main.pointer).charAt(0) == 'N') {//Number
+                //numberAnalyze
+                NumberAnalyzer.numberAnalyze(flag, vector, stringVector);
+                flag = 1;
+            } else if (vector.elementAt(Main.pointer).charAt(0) == 'I') {//Ident
+                String identName = vector.elementAt(Main.pointer).substring(6, vector.elementAt(Main.pointer).length() - 1);
+                if(identName.equals("getint")){
+                    Main.pointer+=3;
+                    Main.res.add("%"+Main.counter+" = call i32 @getint()");
+                    Main.counter++;
+                    return "%"+(Main.counter-1);
+                }
+                else if(identName.equals("getch")){
+                    Main.pointer+=3;
+                    Main.res.add("%"+Main.counter+" = call i32 @getch()");
+                    Main.counter++;
+                    return "%"+(Main.counter-1);
+                }
+                else{
+                    Ident ident;
+                    ident = BlockItemAnalyzer.findIdent(identName);
+                    if (ident != null) {
+                        stringVector.add(identName);
+                    } else System.exit(-6);
+                }
+            }
+            Main.pointer++;
+        }
+        //接下来是表达式求值 表达式已经存在stringVector里了
+        res = Calculator.calculate(stringVector);
+        return res;
     }
 }

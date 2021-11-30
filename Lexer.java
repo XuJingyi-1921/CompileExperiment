@@ -36,17 +36,20 @@ public class Lexer {
         chars.put("return","Return");
         chars.put("=","Assign");
         chars.put(";","Semicolon");
+        chars.put(",","Quote");
         chars.put("(","LPar");
         chars.put(")","RPar");
         chars.put("{","LBrace");
         chars.put("}","RBrace");
         chars.put("+","Plus");
+        chars.put("-","Minus");
         chars.put("*","Mult");
         chars.put("/","Div");
+        chars.put("%","Mod");
         chars.put("<","Lt");
         chars.put(">","Gt");
         chars.put("==","Eq");
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner=new Scanner(new FileReader("in.txt"));
         while(scanner.hasNextLine()){
            StringBuilder LINE= new StringBuilder(scanner.nextLine());
            StringBuilder LINE1=new StringBuilder();
@@ -138,8 +141,8 @@ public class Lexer {
                        }
                        TOKEN="";//初始化TOKEN
                    }
-                   if(CHAR==';'||CHAR=='('||CHAR==')'||CHAR=='{'||CHAR=='}'
-                           ||CHAR=='+'||CHAR=='*'||CHAR=='/'||CHAR=='<'||CHAR=='>'){
+                   if(CHAR==';'||CHAR=='('||CHAR==','||CHAR==')'||CHAR=='{'||CHAR=='}'
+                           ||CHAR=='+'||CHAR=='-'||CHAR=='*'||CHAR=='/'||CHAR=='%'||CHAR=='<'||CHAR=='>'){
                        TOKEN+=CHAR;
                        i++;
                        if(i>=LINE.length()){

@@ -12,132 +12,182 @@ import java.util.Vector;
 此时如若操作数栈中只剩一个数字则表示运算成功，此数就是表达式的结果，如果不止一个数则表示输入的表达式有误
 */
 public class Calculator {//计算表达式的值，这里单独拎出来封装成一个类了
-    public static int calculate(Vector<String>vector){
-        Stack<String>number=new Stack<>();//操作数栈
-        Stack<String>op=new Stack<>();//运算符栈
-        for(int i=0;i<vector.size();i++){
-            if(vector.elementAt(i).matches("^-?[1-9]\\d*$")){//数字，直接入栈
+
+    public static String calculate(Vector<String> vector) {
+        Stack<String> number = new Stack<>();//操作数栈
+        Stack<String> op = new Stack<>();//运算符栈
+        int count = 0;
+        for (int i = 0; i < vector.size(); i++) {
+            if (vector.elementAt(i).equals("(")) count++;
+            else if (vector.elementAt(i).equals(")")) count--;
+        }
+        if (count != 0) System.exit(-1);
+        for (int i = 0; i < vector.size(); i++) {
+            if (vector.elementAt(i).matches("^-?[0-9]\\d*$") || vector.elementAt(i).charAt(0) == '_'
+                    || Character.isLetter(vector.elementAt(i).charAt(0))) {//数字或变量，直接入栈
                 number.push(vector.elementAt(i));
-            }
-            else if(vector.elementAt(i).equals("+")||
-                    vector.elementAt(i).equals("-")||
-                    vector.elementAt(i).equals("*")||
-                    vector.elementAt(i).equals("/")||
-                    vector.elementAt(i).equals("%")||
-                    vector.elementAt(i).equals("(")||
-                    vector.elementAt(i).equals(")")){
-                if(op.isEmpty()){
+            } else if (vector.elementAt(i).equals("+") ||
+                    vector.elementAt(i).equals("-") ||
+                    vector.elementAt(i).equals("*") ||
+                    vector.elementAt(i).equals("/") ||
+                    vector.elementAt(i).equals("%") ||
+                    vector.elementAt(i).equals("(") ||
+                    vector.elementAt(i).equals(")")) {
+                if (op.isEmpty()) {
                     op.push(vector.elementAt(i));
-                }
-                else{
-                    if(vector.elementAt(i).equals("+")||vector.elementAt(i).equals("-")){
-                        while(!op.isEmpty()&&!op.peek().equals("(")){
-                            calculateStack(number, op);
-                        }
-                        op.push(vector.elementAt(i));
-                    }
-                    else if(vector.elementAt(i).equals("*")||vector.elementAt(i).equals("/")||
-                            vector.elementAt(i).equals("%")){
-                        while(!op.isEmpty()&&!op.peek().equals("(")&&!op.peek().equals("+")&&!op.peek().equals("-")){
-                            int a,b,c;
-                            switch (op.peek()){
-                                case "*":
-                                    op.pop();
-                                    if(number.size()<2){System.exit(-1);}
-                                    b=Integer.parseInt(number.pop());
-                                    a=Integer.parseInt(number.pop());
-                                    c=a*b;
-                                    number.push(Integer.toString(c));
-                                    break;
-                                case "/":
-                                    op.pop();
-                                    if(number.size()<2){System.exit(-1);}
-                                    b=Integer.parseInt(number.pop());
-                                    a=Integer.parseInt(number.pop());
-                                    c=a/b;
-                                    number.push(Integer.toString(c));
-                                    break;
-                                case "%":
-                                    op.pop();
-                                    if(number.size()<2){System.exit(-1);}
-                                    b=Integer.parseInt(number.pop());
-                                    a=Integer.parseInt(number.pop());
-                                    c=a%b;
-                                    number.push(Integer.toString(c));
-                                    break;
+                } else {
+                    switch (vector.elementAt(i)) {
+                        case "+":
+                        case "-":
+                            while (!op.isEmpty() && !op.peek().equals("(")) {
+                                calculateStack(number, op);
                             }
-                        }
-                        op.push(vector.elementAt(i));
-                    }
-                    else if(vector.elementAt(i).equals("(")) {
-                        op.push("(");
-                    }
-                    else if(vector.elementAt(i).equals(")")){
-                        if(op.search("(")==-1){
-                            System.exit(-8);
-                        }
-                        while(!op.peek().equals("(")){
-                            calculateStack(number, op);
-                        }
-                        op.pop();
+                            op.push(vector.elementAt(i));
+                            break;
+                        case "*":
+                        case "/":
+                        case "%":
+                            while (!op.isEmpty() && !op.peek().equals("(") && !op.peek().equals("+") && !op.peek().equals("-")) {
+                                int a, b, c;
+                                switch (op.peek()) {
+                                    case "*":
+                                        op.pop();
+                                        if (number.size() < 2) {
+                                            System.exit(-1);
+                                        }
+                                        b = Integer.parseInt(number.pop());
+                                        a = Integer.parseInt(number.pop());
+                                        c = a * b;
+                                        number.push(Integer.toString(c));
+                                        break;
+                                    case "/":
+                                        op.pop();
+                                        if (number.size() < 2) {
+                                            System.exit(-1);
+                                        }
+                                        b = Integer.parseInt(number.pop());
+                                        a = Integer.parseInt(number.pop());
+                                        c = a / b;
+                                        number.push(Integer.toString(c));
+                                        break;
+                                    case "%":
+                                        op.pop();
+                                        if (number.size() < 2) {
+                                            System.exit(-1);
+                                        }
+                                        b = Integer.parseInt(number.pop());
+                                        a = Integer.parseInt(number.pop());
+                                        c = a % b;
+                                        number.push(Integer.toString(c));
+                                        break;
+                                }
+                            }
+                            op.push(vector.elementAt(i));
+                            break;
+                        case "(":
+                            op.push("(");
+                            break;
+                        case ")":
+                            if (op.search("(") == -1) {
+                                System.exit(-8);
+                            }
+                            while (!op.peek().equals("(")) {
+                                calculateStack(number, op);
+                            }
+                            op.pop();
+                            break;
                     }
                 }
             }
         }
-        if(!op.isEmpty()||number.size()>=2){
-            while(!op.isEmpty()){
-                calculateStack(number,op);
+        if (!op.isEmpty() || number.size() >= 2) {
+            while (!op.isEmpty()) {
+                calculateStack(number, op);
             }
         }
-        if(number.size()!=1){
+        if (number.size() != 1) {
             System.exit(-1);
         }
-        return Integer.parseInt(number.peek());
+        return number.peek();
     }
 
     private static void calculateStack(Stack<String> number, Stack<String> op) {
-        int a,b,c;
-        switch (op.peek()){
+        String a, b;
+        switch (op.peek()) {
             case "*":
                 op.pop();
-                if(number.size()<2){System.exit(-1);}
-                b=Integer.parseInt(number.pop());
-                a=Integer.parseInt(number.pop());
-                c=a*b;
-                number.push(Integer.toString(c));
+                if (number.size() < 2) {
+                    System.exit(-1);
+                }
+                b = parser(number.pop());
+                a = parser(number.pop());
+                Main.res.add("%" + Main.counter + " = mul " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
+                number.push("%" + Main.counter);//计算完的值压栈
+                Main.counter++;
                 break;
             case "/":
                 op.pop();
-                if(number.size()<2){System.exit(-1);}
-                b=Integer.parseInt(number.pop());
-                a=Integer.parseInt(number.pop());
-                c=a/b;
-                number.push(Integer.toString(c));
+                if (number.size() < 2) {
+                    System.exit(-1);
+                }
+                b = parser(number.pop());
+                a = parser(number.pop());
+                Main.res.add("%" + Main.counter + " = sdiv " + a + " , " + b);//eg. %2 = sdiv i32 %1 , 10
+                number.push("%" + Main.counter);//计算完的值压栈
+                Main.counter++;
                 break;
             case "%":
                 op.pop();
-                if(number.size()<2){System.exit(-1);}
-                b=Integer.parseInt(number.pop());
-                a=Integer.parseInt(number.pop());
-                c=a%b;
-                number.push(Integer.toString(c));
+                if (number.size() < 2) {
+                    System.exit(-1);
+                }
+                b = parser(number.pop());
+                a = parser(number.pop());
+                Main.res.add("%" + Main.counter + " = srem " + a + " , " + b);//eg. %2 = srem i32 %1 , 10
+                number.push("%" + Main.counter);//计算完的值压栈
+                Main.counter++;
                 break;
             case "+":
                 op.pop();
-                if(number.size()<2){System.exit(-1);}
-                b=Integer.parseInt(number.pop());
-                a=Integer.parseInt(number.pop());
-                c=a+b;
-                number.push(Integer.toString(c));
+                if (number.size() < 2) {
+                    System.exit(-1);
+                }
+                b = parser(number.pop());
+                a = parser(number.pop());
+                Main.res.add("%" + Main.counter + " = add " + a + " , " + b);//eg. %2 = add i32 %1 , 10
+                number.push("%" + Main.counter);//计算完的值压栈
+                Main.counter++;
                 break;
             case "-":
                 op.pop();
-                if(number.size()<2){System.exit(-1);}
-                b=Integer.parseInt(number.pop());
-                a=Integer.parseInt(number.pop());
-                c=a-b;
-                number.push(Integer.toString(c));
+                if (number.size() < 2) {
+                    System.exit(-1);
+                }
+                b = parser(number.pop());
+                a = parser(number.pop());
+                Main.res.add("%" + Main.counter + " = sub " + a + " , " + b);//eg. %2 = sub i32 %1 , 10
+                number.push("%" + Main.counter);//计算完的值压栈
+                Main.counter++;
                 break;
         }
     }
+
+    public static String parser(String name) {
+        if (name.matches("^-?[0-9]\\d*$")) {
+            return name;
+        } else if (name.charAt(0) == '%') {
+            return "i32 " + name;//eg. i32 %1
+        } else {
+            Ident ident;
+            ident = BlockItemAnalyzer.findIdent(name);
+            if (ident != null) {
+                int no = ident.no;
+                return "i32 %" + no;  //eg. %1
+            } else {
+                System.exit(-9);
+                return null;
+            }
+        }
+    }
 }
+
