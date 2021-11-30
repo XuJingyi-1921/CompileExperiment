@@ -178,7 +178,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
         if (name.matches("^-?[0-9]\\d*$")) {
             return name;
         } else if (name.charAt(0) == '%') {
-            return "i32 " + name;//eg. i32 %1
+            return "i32 "+name;//eg. i32 %1
         } else {
             Ident ident;
             ident = BlockItemAnalyzer.findIdent(name);
