@@ -48,7 +48,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                         case "/":
                         case "%":
                             while (!op.isEmpty() && !op.peek().equals("(") && !op.peek().equals("+") && !op.peek().equals("-")) {
-                                String a, b, c;
+                                String a, b;
                                 switch (op.peek()) {
                                     case "*":
                                         op.pop();
@@ -184,7 +184,10 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             ident = BlockItemAnalyzer.findIdent(name);
             if (ident != null) {
                 int no = ident.no;
-                return "i32 %" + no;  //eg. %1
+                Main.res.add("%"+Main.counter+" = load i32, i32* %"+no);
+                ident.setNo(Main.counter);
+                Main.counter++;
+                return "i32 %" + ident.no;  //eg. %1
             } else {
                 System.exit(-9);
                 return null;
