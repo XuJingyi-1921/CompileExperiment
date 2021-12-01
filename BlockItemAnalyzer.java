@@ -36,7 +36,7 @@ public class BlockItemAnalyzer {
                 }
             }
         }
-        System.exit(-1);
+        System.exit(-3);
     }
 
     static Ident findIdent(String identName) {//find if there is an ident declared

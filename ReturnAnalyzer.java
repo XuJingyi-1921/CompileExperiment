@@ -7,7 +7,7 @@ public class ReturnAnalyzer {
         String res= ExpAnalyzer.expAnalyze(vector);
         Main.res.add("ret i32 " + res);
         if(!vector.elementAt(Main.pointer).equals("Semicolon")){
-            System.exit(-2);
+            System.exit(-22);
         }
         else {
             Main.pointer++;

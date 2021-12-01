@@ -15,7 +15,7 @@ public class ExpAnalyzer {//需要修改
             } else if (vector.elementAt(Main.pointer).equals("Plus") || vector.elementAt(Main.pointer).equals("Minus")) {// +/-
                 if (vector.elementAt(Main.pointer - 1).equals("RPar") ||
                         vector.elementAt(Main.pointer - 1).charAt(0) == 'N' ||
-                        vector.elementAt(Main.pointer - 1).charAt(0) == 'I') {
+                        vector.elementAt(Main.pointer - 1).charAt(0) == 'I' ) {
                     if (vector.elementAt(Main.pointer).equals("Plus")) stringVector.add("+");
                     else stringVector.add("-");
                 } else if (vector.elementAt(Main.pointer - 1).equals("LPar") ||
@@ -24,7 +24,8 @@ public class ExpAnalyzer {//需要修改
                         vector.elementAt(Main.pointer - 1).equals("Mult") ||
                         vector.elementAt(Main.pointer - 1).equals("Mod") ||
                         vector.elementAt(Main.pointer - 1).equals("Return") ||
-                        vector.elementAt(Main.pointer - 1).equals("Div")) {
+                        vector.elementAt(Main.pointer - 1).equals("Div")||
+                        vector.elementAt(Main.pointer - 1).equals("Assign")) {
                     if (vector.elementAt(Main.pointer).equals("Minus")) {
                         stringVector.add("-1");
                         stringVector.add("*");
@@ -32,7 +33,7 @@ public class ExpAnalyzer {//需要修改
                     vector.removeElementAt(Main.pointer);
                     continue;
                 } else {
-                    System.exit(-1);
+                    System.exit(-7);
                 }
             } else if (vector.elementAt(Main.pointer).equals("LPar")) {
                 stringVector.add("(");
@@ -50,19 +51,17 @@ public class ExpAnalyzer {//需要修改
                 flag = 1;
             } else if (vector.elementAt(Main.pointer).charAt(0) == 'I') {//Ident
                 String identName = vector.elementAt(Main.pointer).substring(6, vector.elementAt(Main.pointer).length() - 1);
-                if(identName.equals("getint")){
-                    Main.pointer+=3;
-                    Main.res.add("%"+Main.counter+" = call i32 @getint()");
+                if (identName.equals("getint")) {
+                    Main.pointer += 3;
+                    Main.res.add("%" + Main.counter + " = call i32 @getint()");
                     Main.counter++;
-                    return "%"+(Main.counter-1);
-                }
-                else if(identName.equals("getch")){
-                    Main.pointer+=3;
-                    Main.res.add("%"+Main.counter+" = call i32 @getch()");
+                    return "%" + (Main.counter - 1);
+                } else if (identName.equals("getch")) {
+                    Main.pointer += 3;
+                    Main.res.add("%" + Main.counter + " = call i32 @getch()");
                     Main.counter++;
-                    return "%"+(Main.counter-1);
-                }
-                else{
+                    return "%" + (Main.counter - 1);
+                } else {
                     Ident ident;
                     ident = BlockItemAnalyzer.findIdent(identName);
                     if (ident != null) {

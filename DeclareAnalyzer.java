@@ -6,7 +6,7 @@ public class DeclareAnalyzer {
         if (vector.elementAt(Main.pointer).equals("Ident(const)")) {//定义常量
             Main.pointer++;
             if (!vector.elementAt(Main.pointer).equals("Ident(int)")) {
-                System.exit(-3);
+                System.exit(-30);
             } else Main.pointer++;
             declareIdent(vector,true);
         }

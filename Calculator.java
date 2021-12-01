@@ -53,7 +53,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                     case "*":
                                         op.pop();
                                         if (number.size() < 2) {
-                                            System.exit(-1);
+                                            System.exit(-2);
                                         }
                                         b = parser(number.pop());
                                         a = parser(number.pop());
@@ -63,7 +63,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                     case "/":
                                         op.pop();
                                         if (number.size() < 2) {
-                                            System.exit(-1);
+                                            System.exit(-13);
                                         }
                                         b = parser(number.pop());
                                         a = parser(number.pop());
@@ -74,7 +74,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                     case "%":
                                         op.pop();
                                         if (number.size() < 2) {
-                                            System.exit(-1);
+                                            System.exit(-14);
                                         }
                                         b = parser(number.pop());
                                         a = parser(number.pop());
@@ -108,7 +108,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             }
         }
         if (number.size() != 1) {
-            System.exit(-1);
+            System.exit(-10);
         }
         if(number.peek().charAt(0)!='%'){
             return parser(number.peek());
@@ -122,7 +122,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             case "*":
                 op.pop();
                 if (number.size() < 2) {
-                    System.exit(-1);
+                    System.exit(-11);
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
@@ -133,7 +133,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             case "/":
                 op.pop();
                 if (number.size() < 2) {
-                    System.exit(-1);
+                    System.exit(-11);
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
@@ -144,7 +144,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             case "%":
                 op.pop();
                 if (number.size() < 2) {
-                    System.exit(-1);
+                    System.exit(-11);
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
@@ -155,7 +155,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             case "+":
                 op.pop();
                 if (number.size() < 2) {
-                    System.exit(-1);
+                    System.exit(-11);
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
@@ -166,7 +166,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             case "-":
                 op.pop();
                 if (number.size() < 2) {
-                    System.exit(-1);
+                    System.exit(-11);
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
