@@ -187,10 +187,14 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             ident = BlockItemAnalyzer.findIdent(name);
             if (ident != null) {
                 int no = ident.no;
-                Main.res.add("%"+Main.counter+" = load i32, i32* %"+no);
-                ident.setNo(Main.counter);
-                Main.counter++;
-                return "%" + ident.no;  //eg. %1
+                int temp= ident.temp;
+                if(temp==0){
+                    Main.res.add("%"+Main.counter+" = load i32, i32* %"+no);
+                    ident.setTemp(Main.counter);
+                    Main.counter++;
+                }
+                return "%" + ident.temp;  //eg. %1
+
             } else {
                 System.exit(-9);
                 return null;

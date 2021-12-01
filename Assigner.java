@@ -15,6 +15,7 @@ public class Assigner {
                     Main.res.add("%"+Main.counter+" = alloca i32");
                     Main.res.add("store i32 "+res+", i32* %"+Main.counter);
                     ident.setNo(Main.counter);
+                    ident.setTemp(0);
                     Main.counter++;
                 }
             }
