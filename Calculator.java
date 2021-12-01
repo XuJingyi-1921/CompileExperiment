@@ -57,7 +57,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                         }
                                         b = parser(number.pop());
                                         a = parser(number.pop());
-                                        Main.res.add("%" + Main.counter + " = mul " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
+                                        Main.res.add("%" + Main.counter + " = mul i32 " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
                                         number.push("%" + Main.counter);//计算完的值压栈
                                         break;
                                     case "/":
@@ -67,7 +67,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                         }
                                         b = parser(number.pop());
                                         a = parser(number.pop());
-                                        Main.res.add("%" + Main.counter + " = sdiv " + a + " , " + b);//eg. %2 = sdiv i32 %1 , 10
+                                        Main.res.add("%" + Main.counter + " = sdiv i32 " + a + " , " + b);//eg. %2 = sdiv i32 %1 , 10
                                         number.push("%" + Main.counter);//计算完的值压栈
                                         Main.counter++;
                                         break;
@@ -78,7 +78,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                         }
                                         b = parser(number.pop());
                                         a = parser(number.pop());
-                                        Main.res.add("%" + Main.counter + " = srem " + a + " , " + b);//eg. %2 = srem i32 %1 , 10
+                                        Main.res.add("%" + Main.counter + " = srem i32 " + a + " , " + b);//eg. %2 = srem i32 %1 , 10
                                         number.push("%" + Main.counter);//计算完的值压栈
                                         Main.counter++;
                                         break;
@@ -126,7 +126,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = mul " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = mul i32 " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
                 number.push("%" + Main.counter);//计算完的值压栈
                 Main.counter++;
                 break;
@@ -137,7 +137,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = sdiv " + a + " , " + b);//eg. %2 = sdiv i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = sdiv i32 " + a + " , " + b);//eg. %2 = sdiv i32 %1 , 10
                 number.push("%" + Main.counter);//计算完的值压栈
                 Main.counter++;
                 break;
@@ -148,7 +148,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = srem " + a + " , " + b);//eg. %2 = srem i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = srem i32 " + a + " , " + b);//eg. %2 = srem i32 %1 , 10
                 number.push("%" + Main.counter);//计算完的值压栈
                 Main.counter++;
                 break;
@@ -159,7 +159,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = add " + a + " , " + b);//eg. %2 = add i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = add i32 " + a + " , " + b);//eg. %2 = add i32 %1 , 10
                 number.push("%" + Main.counter);//计算完的值压栈
                 Main.counter++;
                 break;
@@ -170,7 +170,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = sub " + a + " , " + b);//eg. %2 = sub i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = sub i32 " + a + " , " + b);//eg. %2 = sub i32 %1 , 10
                 number.push("%" + Main.counter);//计算完的值压栈
                 Main.counter++;
                 break;
@@ -181,7 +181,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
         if (name.matches("^-?[0-9]\\d*$")) {
             return name;
         } else if (name.charAt(0) == '%') {
-            return "i32 "+name;//eg. i32 %1
+            return name;//eg. i32 %1
         } else {
             Ident ident;
             ident = BlockItemAnalyzer.findIdent(name);
@@ -190,7 +190,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 Main.res.add("%"+Main.counter+" = load i32, i32* %"+no);
                 ident.setNo(Main.counter);
                 Main.counter++;
-                return "i32 %" + ident.no;  //eg. %1
+                return "%" + ident.no;  //eg. %1
             } else {
                 System.exit(-9);
                 return null;
