@@ -110,7 +110,10 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
         if (number.size() != 1) {
             System.exit(-1);
         }
-        return parser(number.peek());
+        if(number.peek().charAt(0)!='%'){
+            return parser(number.peek());
+        }
+        else return number.peek();
     }
 
     private static void calculateStack(Stack<String> number, Stack<String> op) {
