@@ -59,6 +59,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                                         a = parser(number.pop());
                                         Main.res.add("%" + Main.counter + " = mul i32 " + a + " , " + b);//eg. %2 = mul i32 %1 , 10
                                         number.push("%" + Main.counter);//计算完的值压栈
+                                        Main.counter++;
                                         break;
                                     case "/":
                                         op.pop();
