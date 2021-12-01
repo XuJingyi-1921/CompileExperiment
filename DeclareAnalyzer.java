@@ -29,7 +29,7 @@ public class DeclareAnalyzer {
                 Main.counter++;
                 if (vector.elementAt(Main.pointer).equals("Assign")) {//声明后直接赋值语句
                     Main.pointer++;
-                    String val = ExpAnalyzer.expAnalyze(vector);
+                    String val = ExpAnalyzer.expAnalyze(vector,isConst);
                     //ident.setValue(val);
                     Main.res.add("%"+Main.counter+" = alloca i32");
                     Main.res.add("store i32 "+val+" , i32* %"+Main.counter);

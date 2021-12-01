@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Vector;
 
 public class BlockItemAnalyzer {
@@ -14,7 +15,8 @@ public class BlockItemAnalyzer {
                         DeclareAnalyzer.declareAnalyze();//declare ident, developing now
                     } else if (vector.elementAt(Main.pointer).charAt(0) == 'I' &&
                             vector.elementAt(Main.pointer + 1).equals("Assign")) {//give value sentence
-                        Assigner.assignValue(vector);//evaluate(developing now)
+                        boolean isConst = Objects.requireNonNull(findIdent(vector.elementAt(Main.pointer).substring(6,vector.elementAt(Main.pointer).length()-1))).isConst;
+                        Assigner.assignValue(vector,isConst);//evaluate(developing now)
                     } else if (vector.elementAt(Main.pointer).equals("Ident(putint)") ||
                             vector.elementAt(Main.pointer).equals("Ident(putch)")) {
                         switch (vector.elementAt(Main.pointer)) {
@@ -26,7 +28,7 @@ public class BlockItemAnalyzer {
                                 break;
                         }
                     } else {
-                        ExpAnalyzer.expAnalyze(vector);//expAnalyzer
+                        ExpAnalyzer.expAnalyze(vector,false);//expAnalyzer
                     }
                     if (vector.elementAt(Main.pointer).equals("RBrace")) {
                         Main.res.add("}");

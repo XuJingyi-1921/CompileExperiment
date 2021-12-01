@@ -1,8 +1,8 @@
 import java.util.Vector;
 
-public class ExpAnalyzer {//需要修改
+public class ExpAnalyzer {
 
-    public static String expAnalyze(Vector<String> vector) {
+    public static String expAnalyze(Vector<String> vector,boolean isConst) {
         int flag = 1;
         String res;
         Vector<String> stringVector = new Vector<>();
@@ -65,6 +65,9 @@ public class ExpAnalyzer {//需要修改
                     Ident ident;
                     ident = BlockItemAnalyzer.findIdent(identName);
                     if (ident != null) {
+                        if(isConst && !ident.isConst){
+                            System.exit(-5);
+                        }
                         stringVector.add(identName);
                     } else System.exit(-6);
                 }
