@@ -1,7 +1,7 @@
-[jobs.lexer]
+[jobs.lab4]
 
-image = { source = "dockerfile", path = ".", tag = "test-example" }
+image = { source = "dockerfile", path = "." }
 
 run = [
-  "java Lexer <$input",
+  "java Main <$input >$ir"
 ]
