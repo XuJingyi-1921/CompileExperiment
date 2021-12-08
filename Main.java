@@ -79,15 +79,15 @@ public class Main {
                     if(vector.elementAt(i).equals("LPar"))flag++;
                     else if(vector.elementAt(i).equals("RPar"))flag--;
                 }
-                if(!vector.elementAt(i).equals("LBrace")){
+                if(!vector.elementAt(i+1).equals("LBrace")){
                     vector.add(i+1,"LBrace");
                     while (!vector.elementAt(i).equals("Semicolon"))i++;
                     vector.add(i+1,"RBrace");
                 }
             }
             else if(vector.elementAt(i).equals("Else")&&!vector.elementAt(i+1).equals("If")){
-                if(!vector.elementAt(i+2).equals("LBrace")) {
-                    vector.add(i + 3, "LBrace");
+                if(!vector.elementAt(i+1).equals("LBrace")) {
+                    vector.add(i + 1, "LBrace");
                     while (!vector.elementAt(i).equals("Semicolon"))i++;
                     vector.add(i+1,"RBrace");
                 }
