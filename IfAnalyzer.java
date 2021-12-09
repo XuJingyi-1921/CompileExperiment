@@ -76,7 +76,7 @@ public class IfAnalyzer {
                 ifAnalyze(vector);
             } else if (vector.elementAt(Main.pointer + 1).equals("LBrace")) {
                 Main.pointer++;
-                Main.res.add("block "+Main.pointer+":");
+                Main.res.add("block"+Main.pointer+":");
                 BlockItemAnalyzer.blockItemAnalyze(vector);
                 Main.res.add("br label %block" + (Main.pointer));
                 Main.res.add("");
