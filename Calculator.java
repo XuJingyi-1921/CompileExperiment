@@ -223,7 +223,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = icmp lt i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = icmp slt i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
                 Main.counter++;
                 Main.res.add("%" + Main.counter + " = zext i1 " + "%"+(Main.counter-1)+" to i32");
                 number.push("%" + Main.counter);//计算完的值压栈
@@ -238,7 +238,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = icmp gt i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
                 Main.counter++;
                 Main.res.add("%" + Main.counter + " = zext i1 " + "%"+(Main.counter-1)+" to i32");
                 number.push("%" + Main.counter);//计算完的值压栈
@@ -253,7 +253,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = icmp le i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = icmp sle i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
                 Main.counter++;
                 Main.res.add("%" + Main.counter + " = zext i1 " + "%"+(Main.counter-1)+" to i32");
                 number.push("%" + Main.counter);//计算完的值压栈
@@ -268,7 +268,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = icmp ge i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
+                Main.res.add("%" + Main.counter + " = icmp sge i32 " + a + " , " + b);//eg. %2 = icmp lt i32 %1 , 10
                 Main.counter++;
                 Main.res.add("%" + Main.counter + " = zext i1 " + "%"+(Main.counter-1)+" to i32");
                 number.push("%" + Main.counter);//计算完的值压栈
