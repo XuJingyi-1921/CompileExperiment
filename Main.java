@@ -41,6 +41,11 @@ public class Main {
                         BlockItemAnalyzer.blockItemAnalyze(vector);//分析语句块代码
                         res.add("}");
                         for (int l = 0; l < res.size(); l++) {
+                            if(res.elementAt(l).length()>7){
+                                if(res.elementAt(l).substring(0,5).equals("block")&&res.elementAt(l+1).equals("}")){
+                                   continue;
+                                }
+                            }
                             System.out.println(res.elementAt(l));
                         }
                         System.exit(0);
