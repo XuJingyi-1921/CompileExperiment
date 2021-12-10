@@ -5,11 +5,11 @@ public class IfAnalyzer {
         int endNum = 0, flag = 0;
         if (vector.elementAt(Main.pointer).equals("If")) {
             if(!vector.elementAt(Main.pointer-1).equals("Else")){
-                Main.res.add("br label %block" + (Main.pointer));// I'm thinking
+                Main.res.add("br label %block" + (Main.pointer+1));// I'm thinking
                 Main.res.add("");
             }
-            Main.res.add("block" + Main.pointer + ":");
             Main.pointer++;
+            Main.res.add("block" + Main.pointer + ":");
             String s = LorExpAnalyzer.lorExpAnalyze(vector, false);
             if (!vector.elementAt(Main.pointer).equals("LBrace")) {
                 System.exit(-40);
