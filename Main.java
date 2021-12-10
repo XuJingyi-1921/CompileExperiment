@@ -74,22 +74,24 @@ public class Main {
             if(vector.elementAt(i).equals("If")&&vector.elementAt(i+1).equals("LPar")){
                 flag=1;
                 i++;
+                int ii=i;
                 while (flag!=0){
-                    i++;
-                    if(vector.elementAt(i).equals("LPar"))flag++;
-                    else if(vector.elementAt(i).equals("RPar"))flag--;
+                    ii++;
+                    if(vector.elementAt(ii).equals("LPar"))flag++;
+                    else if(vector.elementAt(ii).equals("RPar"))flag--;
                 }
-                if(!vector.elementAt(i+1).equals("LBrace")){
-                    vector.add(i+1,"LBrace");
-                    while (!vector.elementAt(i).equals("Semicolon"))i++;
-                    vector.add(i+1,"RBrace");
+                if(!vector.elementAt(ii+1).equals("LBrace")){
+                    vector.add(ii+1,"LBrace");
+                    while (!vector.elementAt(ii).equals("Semicolon"))ii++;
+                    vector.add(ii+1,"RBrace");
                 }
             }
             else if(vector.elementAt(i).equals("Else")&&!vector.elementAt(i+1).equals("If")){
                 if(!vector.elementAt(i+1).equals("LBrace")) {
                     vector.add(i + 1, "LBrace");
-                    while (!vector.elementAt(i).equals("Semicolon"))i++;
-                    vector.add(i+1,"RBrace");
+                    int ii=i;
+                    while (!vector.elementAt(ii).equals("Semicolon"))ii++;
+                    vector.add(ii+1,"RBrace");
                 }
             }
         }
