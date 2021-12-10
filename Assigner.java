@@ -12,10 +12,9 @@ public class Assigner {
             if(ident!=null){
                 if(ident.isConst) System.exit(-4);
                 else {
-                    Main.res.add("%"+Main.counter+" = alloca i32");
-                    Main.res.add("store i32 "+res+", i32* %"+Main.counter);
-                    ident.setNo(Main.counter);
-                    ident.setTemp(0);
+                    //Main.res.add("%"+Main.counter+" = alloca i32");
+                    Main.res.add("store i32 "+res+", i32* %"+ident.no);
+                    //ident.setNo(Main.counter);
                     Main.counter++;
                 }
             }

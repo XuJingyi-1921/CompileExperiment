@@ -27,26 +27,28 @@ public class DeclareAnalyzer {
                 ident.setNo(Main.counter);
                 Main.pointer++;
                 Main.counter++;
-                if (vector.elementAt(Main.pointer).equals("Assign")) {//声明后直接赋值语句
-                    Main.pointer++;
-                    String val = ExpAnalyzer.expAnalyze(vector,isConst);
-                    //ident.setValue(val);
-                    Main.res.add("%"+Main.counter+" = alloca i32");
-                    Main.res.add("store i32 "+val+" , i32* %"+Main.counter);
-                    ident.setNo(Main.counter);
-                    Main.counter++;
-                    Main.identList.add(ident);
-
-                    if(vector.elementAt(Main.pointer).equals("Quote")){
+                switch (vector.elementAt(Main.pointer)) {
+                    case "Assign": //声明后直接赋值语句
                         Main.pointer++;
-                    }
-                }
-                else if(vector.elementAt(Main.pointer).equals("Quote")){
-                    Main.pointer++;
-                    Main.identList.add(ident);
-                }
-                else if (vector.elementAt(Main.pointer).equals("Semicolon")){
-                    Main.identList.add(ident);
+                        String val = ExpAnalyzer.expAnalyze(vector, isConst);
+                        //ident.setValue(val);
+                        Main.res.add("%" + Main.counter + " = alloca i32");
+                        Main.res.add("store i32 " + val + " , i32* %" + Main.counter);
+                        ident.setNo(Main.counter);
+                        Main.counter++;
+                        Main.identList.add(ident);
+
+                        if (vector.elementAt(Main.pointer).equals("Quote")) {
+                            Main.pointer++;
+                        }
+                        break;
+                    case "Quote":
+                        Main.pointer++;
+                        Main.identList.add(ident);
+                        break;
+                    case "Semicolon":
+                        Main.identList.add(ident);
+                        break;
                 }
             }
             if (vector.elementAt(Main.pointer).equals("Semicolon")) {

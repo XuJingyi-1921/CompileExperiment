@@ -3,7 +3,7 @@ public class Ident {
     int value;
     Boolean isConst = false;
     int no;//alloca number
-    int temp = 0;
+
 
     public void setConst(Boolean aConst) {
         isConst = aConst;
@@ -21,7 +21,4 @@ public class Ident {
         this.no = no;
     }
 
-    public void setTemp(int temp) {
-        this.temp = temp;
-    }
 }
