@@ -15,7 +15,7 @@ public class Assigner {
                     //Main.res.add("%"+Main.counter+" = alloca i32");
                     Main.res.add("store i32 "+res+", i32* %"+ident.no);
                     //ident.setNo(Main.counter);
-                    Main.counter++;
+                    //Main.counter++;
                 }
             }
             else System.exit(-5);
