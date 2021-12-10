@@ -12,6 +12,8 @@ public class ReturnAnalyzer {
         else {
             Main.res.add("");
             Main.res.add("block"+Main.pointer+":");
+            Main.res.add("");
+
             Main.pointer++;
         }
     }
