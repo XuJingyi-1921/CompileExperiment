@@ -32,7 +32,7 @@ public class IfAnalyzer {
                                     System.exit(-50);
                                 }
                             } else {
-                                endNum = i + 1;
+                                endNum = i + 2;//if 后面没有else 这个语句块向下跳转 这里设置为右括号结束的第二个字符位置
                                 break;
                             }
                         }
@@ -46,7 +46,7 @@ public class IfAnalyzer {
                 BlockItemAnalyzer.blockItemAnalyze(vector);//现在pointer在‘}’+1处
                 endNum = 0;
                 flag = 0;
-                if(!vector.elementAt(Main.pointer).equals("Else")){
+                if(!vector.elementAt(Main.pointer).equals("Else")){//不是else 对应上面的
                     endNum=Main.pointer+1;
                     Main.res.add("br label %block" + (endNum));
                     Main.res.add("");
@@ -60,7 +60,7 @@ public class IfAnalyzer {
                             flag--;
                             if (flag == 0) {
                                 if (!vector.elementAt(i + 1).equals("Else")) {
-                                    endNum=i+1;//最后一个else右括号结束
+                                    endNum=i+2;//最后一个else右括号结束 再加1
                                     break;
                                 }
                             }
@@ -78,9 +78,9 @@ public class IfAnalyzer {
                 Main.pointer++;
                 Main.res.add("block"+Main.pointer+":");
                 BlockItemAnalyzer.blockItemAnalyze(vector);
-                Main.res.add("br label %block" + (Main.pointer));
+                Main.res.add("br label %block" + (Main.pointer+1));
                 Main.res.add("");
-               Main.res.add("block" + (Main.pointer) + ":");
+               Main.res.add("block" + (Main.pointer+1) + ":");
 
             }
         }
