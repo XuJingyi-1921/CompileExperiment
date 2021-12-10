@@ -10,6 +10,8 @@ public class ReturnAnalyzer {
             System.exit(-22);
         }
         else {
+            Main.res.add("");
+            Main.res.add("block"+Main.pointer+":");
             Main.pointer++;
         }
     }
