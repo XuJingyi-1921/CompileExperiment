@@ -43,18 +43,16 @@ public class DeclareAnalyzer {
                         Main.res.add("@" + (Main.counter - 1) + " = dso_local global i32 0");
                     } else if (vector.elementAt(Main.pointer).equals("Assign")) {
                         Main.pointer++;
-                        if (vector.elementAt(Main.pointer).substring(0, 7).equals("Number(")) {
-                            int val = Integer.parseInt(vector.elementAt(Main.pointer).substring(7, vector.elementAt(Main.pointer).length() - 1));
-                            Main.res.add("@" + (Main.counter - 1) + " = dso_local global i32 " + val);
+                        int val = GlobalExpAnalyzer.expAnalyze(vector);
+                        Main.res.add("@" + (Main.counter - 1) + " = dso_local global i32 " + val);
+                        ident.infos.elementAt(0).value=val;
+                        Main.identList.add(ident);
+                        if (vector.elementAt(Main.pointer).equals("Quote")) {
                             Main.pointer++;
-                            Main.identList.add(ident);
-                            if (vector.elementAt(Main.pointer).equals("Quote")) {
-                                Main.pointer++;
-                            } else if (vector.elementAt(Main.pointer).equals("Quote")) {
-                                Main.identList.add(ident);
-                                Main.pointer++;
-                            }
                         }
+                    } else if (vector.elementAt(Main.pointer).equals("Quote")) {
+                        Main.identList.add(ident);
+                        Main.pointer++;
                     }
                 } else {
                     switch (vector.elementAt(Main.pointer)) {

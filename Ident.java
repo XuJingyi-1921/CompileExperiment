@@ -11,6 +11,7 @@ public class Ident {
 class Info{
     Boolean isConst=false;
     int no;// alloca number
+    int value=0;
     int level;
     public Info(Boolean isConst,int no,int level){
         this.isConst=isConst;

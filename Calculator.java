@@ -351,7 +351,12 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
             ident = BlockItemAnalyzer.findIdent(name);
             if (ident != null) {
                 int no = ident.infos.elementAt(0).no;
-                Main.res.add("%" + Main.counter + " = load i32, i32* %" + no);
+                if(ident.infos.elementAt(0).level==0){
+                    Main.res.add("%" + Main.counter + " = load i32, i32* @" + no);
+                }
+                else {
+                    Main.res.add("%" + Main.counter + " = load i32, i32* %" + no);
+                }
                 Main.counter++;
                 return "%" + (Main.counter-1);
             } else {

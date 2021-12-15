@@ -7,17 +7,18 @@ public class Main {
     public static Vector<Ident> identList = new Vector<>();
     public static Vector<Block> blockList = new Vector<>();
     public static int pointer = 0;
-    public static int counter = 1;//递增的命名号码
+    public static int counter = 0;//递增的命名号码
     public static int level = 0;//当前层数
 
     public static void main(String[] args) throws FileNotFoundException {
         Lexer.lexer(vector);//词法分析，将全部token存入向量中。
         while (pointer<vector.size()){
-            if (!vector.elementAt(pointer).equals("Ident(int)")) {
+            if (!vector.elementAt(pointer).equals("Ident(int)")&&!vector.elementAt(pointer).equals("Ident(const)")) {
                 System.exit(-1);
             }
             if (vector.elementAt(pointer+1).equals("Ident(main)")) {
                 pointer++;
+                counter=1;
                 MainAnalyzer.mainAnalyze(vector, res);
             }
             else {
