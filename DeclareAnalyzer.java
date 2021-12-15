@@ -62,7 +62,8 @@ public class DeclareAnalyzer {
                             Main.pointer++;
                             String val = ExpAnalyzer.expAnalyze(vector, isConst);
                             //Main.res.add("%" + Main.counter + " = alloca i32");
-                            Main.res.add("store i32 " + val + " , i32* %" + (Main.counter - 1));
+                            //Main.res.add("store i32 " + val + " , i32* %" + (Main.counter - 1));
+                            Main.res.add("store i32 " + val + " , i32* %" + (ident.infos.elementAt(0).no));
                             if (ifIdentIsNew) Main.identList.add(ident);
                             if (vector.elementAt(Main.pointer).equals("Quote")) {
                                 Main.pointer++;
