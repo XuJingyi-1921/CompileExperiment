@@ -21,6 +21,9 @@ public class BlockItemAnalyzer {
                     } else if (vector.elementAt(Main.pointer).charAt(0) == 'I' &&
                             vector.elementAt(Main.pointer + 1).equals("Assign")) {//give value sentence
                         Ident ident = findIdent(vector.elementAt(Main.pointer).substring(6, vector.elementAt(Main.pointer).length() - 1));
+                        if(ident==null){
+                            System.exit(-3);
+                        }
                         boolean isConst = Objects.requireNonNull(ident).infos.elementAt(0).isConst;
                         Assigner.assignValue(vector, isConst);//evaluate
                     } else if (vector.elementAt(Main.pointer).equals("Ident(putint)") ||

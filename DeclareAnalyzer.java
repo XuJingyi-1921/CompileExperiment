@@ -41,6 +41,8 @@ public class DeclareAnalyzer {
                 if (isGlobal) {
                     if (vector.elementAt(Main.pointer).equals("Semicolon")) {
                         Main.res.add("@" + (Main.counter - 1) + " = dso_local global i32 0");
+                        ident.infos.elementAt(0).value=0;
+                        Main.identList.add(ident);
                     } else if (vector.elementAt(Main.pointer).equals("Assign")) {
                         Main.pointer++;
                         int val = GlobalExpAnalyzer.expAnalyze(vector);
@@ -51,6 +53,7 @@ public class DeclareAnalyzer {
                             Main.pointer++;
                         }
                     } else if (vector.elementAt(Main.pointer).equals("Quote")) {
+                        ident.infos.elementAt(0).value=0;
                         Main.identList.add(ident);
                         Main.pointer++;
                     }
