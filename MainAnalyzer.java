@@ -21,7 +21,10 @@ public class MainAnalyzer {
             res.add("}");
             for (int l = 0; l < res.size(); l++) {
                 if (res.elementAt(l).length() > 7) {
-                    if (res.elementAt(l).substring(0, 5).equals("block") && res.elementAt(l + 1).equals("}")) {
+                    if (res.elementAt(l).startsWith("block") && res.elementAt(l + 1).equals("}")) {
+                        continue;
+                    }
+                    else if(res.elementAt(l).startsWith("br")&&res.elementAt(l-1).startsWith("br")){
                         continue;
                     }
                 }

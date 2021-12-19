@@ -34,12 +34,14 @@ public class ExpAnalyzer {
                     Main.pointer += 3;
                     Main.res.add("%" + Main.counter + " = call i32 @getint()");
                     Main.counter++;
-                    return "%" + (Main.counter - 1);
+                    String val = "%" + (Main.counter - 1);
+                    stringVector.add(val);
                 } else if (identName.equals("getch")) {
                     Main.pointer += 3;
                     Main.res.add("%" + Main.counter + " = call i32 @getch()");
                     Main.counter++;
-                    return "%" + (Main.counter - 1);
+                    String val = "%" + (Main.counter - 1);
+                    stringVector.add(val);
                 } else {
                     Ident ident;
                     ident = BlockItemAnalyzer.findIdent(identName);
