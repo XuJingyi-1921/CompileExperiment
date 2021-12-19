@@ -105,6 +105,7 @@ public class CycleAnalyzer {
                         flag--;
                         if (flag == 0) {//while语句终结,标记位是终结的右括号的位置
                             endNum = i;
+                            break;
                         }
                     }
                 }
