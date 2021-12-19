@@ -22,11 +22,12 @@ public class BlockItemAnalyzer {
                         CycleAnalyzer.whileAnalyze(vector);
                     } else if (vector.elementAt(Main.pointer).equals("Continue") ||
                             vector.elementAt(Main.pointer).equals("Break")) {
-                        if (vector.elementAt(Main.pointer).equals("Break")) {
-                            CycleAnalyzer.jumpAnalyze(1, head, tail);
-                        } else {
-                            CycleAnalyzer.jumpAnalyze(0, head, tail);
-                        }
+                            if (vector.elementAt(Main.pointer).equals("Break")) {
+                                CycleAnalyzer.jumpAnalyze(1, head, tail);
+                            } else {
+                                CycleAnalyzer.jumpAnalyze(0, head, tail);
+                            }
+
                     } else if (vector.elementAt(Main.pointer).charAt(0) == 'I' &&
                             vector.elementAt(Main.pointer + 1).equals("Assign")) {//give value sentence
                         Ident ident = findIdent(vector.elementAt(Main.pointer).substring(6, vector.elementAt(Main.pointer).length() - 1));

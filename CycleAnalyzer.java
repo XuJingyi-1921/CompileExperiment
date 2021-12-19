@@ -43,7 +43,7 @@ public class CycleAnalyzer {
                 Main.counter++;
                 Main.res.add("");
                 Main.res.add("block" + Main.pointer + ":");
-                BlockItemAnalyzer.blockItemAnalyze(vector, false, 0, 0);//现在pointer在‘}’+1处
+                BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, Main.head, Main.tail);//现在pointer在‘}’+1处
                 endNum = 0;
                 flag = 0;
                 if (!vector.elementAt(Main.pointer).equals("Else")) {//不是else 对应上面的
@@ -76,7 +76,7 @@ public class CycleAnalyzer {
             } else if (vector.elementAt(Main.pointer + 1).equals("LBrace")) {
                 Main.pointer++;
                 Main.res.add("block" + Main.pointer + ":");
-                BlockItemAnalyzer.blockItemAnalyze(vector, false, 0, 0);
+                BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, Main.head, Main.tail);
                 Main.res.add("br label %block" + (Main.pointer + 1));
                 Main.res.add("");
                 Main.res.add("block" + (Main.pointer + 1) + ":");
@@ -88,6 +88,7 @@ public class CycleAnalyzer {
     public static void whileAnalyze(Vector<String> vector) {
         int endNum = 0, flag = 0;
         if (vector.elementAt(Main.pointer).equals("While")) {
+            Main.inCycle=true;
             int head = Main.pointer, tail;
             Main.res.add("br label %blockw" + (Main.pointer));
             Main.res.add("");
@@ -114,7 +115,10 @@ public class CycleAnalyzer {
                 Main.res.add("");
                 Main.res.add("blockw" + Main.pointer + ":");
                 int prev_pointer = Main.pointer;
-                BlockItemAnalyzer.blockItemAnalyze(vector, true, head, tail);//现在pointer在‘}’+1处
+                Main.head=head;Main.tail=tail;
+                BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, head, tail);//现在pointer在‘}’+1处
+                Main.inCycle=false;
+                Main.head=Main.tail=0;
                 if (Main.pointer > prev_pointer) {
                     Main.res.add("br label %blockw" + (Main.pointer - 1));
                     Main.res.add("");
@@ -133,5 +137,6 @@ public class CycleAnalyzer {
                 Main.res.add("br label %blockw"+tail);
                 break;
         }
+        Main.pointer+=2;
     }
 }

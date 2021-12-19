@@ -9,19 +9,20 @@ public class Main {
     public static int pointer = 0;
     public static int counter = 0;//递增的命名号码
     public static int level = 0;//当前层数
+    public static boolean inCycle = false;
+    public static int head=0,tail=0;
 
     public static void main(String[] args) throws FileNotFoundException {
         Lexer.lexer(vector);//词法分析，将全部token存入向量中。
-        while (pointer<vector.size()){
-            if (!vector.elementAt(pointer).equals("Ident(int)")&&!vector.elementAt(pointer).equals("Ident(const)")) {
+        while (pointer < vector.size()) {
+            if (!vector.elementAt(pointer).equals("Ident(int)") && !vector.elementAt(pointer).equals("Ident(const)")) {
                 System.exit(-1);
             }
-            if (vector.elementAt(pointer+1).equals("Ident(main)")) {
+            if (vector.elementAt(pointer + 1).equals("Ident(main)")) {
                 pointer++;
-                counter=1;
+                counter = 1;
                 MainAnalyzer.mainAnalyze(vector, res);
-            }
-            else {
+            } else {
                 DeclareAnalyzer.declareAnalyze(true);
             }
         }
