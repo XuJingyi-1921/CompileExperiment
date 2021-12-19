@@ -31,13 +31,13 @@ public class ExpAnalyzer {
             } else if (vector.elementAt(Main.pointer).charAt(0) == 'I'&& !vector.elementAt(Main.pointer).equals("If")) {//Ident
                 String identName = vector.elementAt(Main.pointer).substring(6, vector.elementAt(Main.pointer).length() - 1);
                 if (identName.equals("getint")) {
-                    Main.pointer += 3;
+                    Main.pointer += 2;
                     Main.res.add("%" + Main.counter + " = call i32 @getint()");
                     Main.counter++;
                     String val = "%" + (Main.counter - 1);
                     stringVector.add(val);
                 } else if (identName.equals("getch")) {
-                    Main.pointer += 3;
+                    Main.pointer += 2;
                     Main.res.add("%" + Main.counter + " = call i32 @getch()");
                     Main.counter++;
                     String val = "%" + (Main.counter - 1);

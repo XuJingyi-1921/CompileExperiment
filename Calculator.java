@@ -141,6 +141,7 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
             }
             else if (vector.elementAt(i).matches("^-?[0-9]\\d*$") || vector.elementAt(i).charAt(0) == '_'
+                    ||vector.elementAt(i).charAt(0) == '%'
                     || Character.isLetter(vector.elementAt(i).charAt(0))) {//数字或变量，直接入栈
                 number.push(vector.elementAt(i));
             }
