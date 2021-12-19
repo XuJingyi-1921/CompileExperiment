@@ -117,6 +117,7 @@ public class CycleAnalyzer {
                 int prev_pointer = Main.pointer;
                 Main.head=head;Main.tail=tail;
                 BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, head, tail);//现在pointer在‘}’+1处
+                Main.res.add("br label %blockw" + head);
                 Main.inCycle=false;
                 Main.head=Main.tail=0;
                 if (Main.pointer > prev_pointer) {
