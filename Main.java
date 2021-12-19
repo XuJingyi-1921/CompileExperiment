@@ -32,7 +32,7 @@ public class Main {
         int i = pointer;
         int flag = 0;
         for (; i < vector.size(); i++) {
-            if (vector.elementAt(i).equals("If") && vector.elementAt(i + 1).equals("LPar")) {
+            if ((vector.elementAt(i).equals("If") || vector.elementAt(i).equals("While"))&& vector.elementAt(i + 1).equals("LPar")) {
                 flag = 1;
                 i++;
                 int ii = i;

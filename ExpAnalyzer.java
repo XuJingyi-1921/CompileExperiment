@@ -56,6 +56,10 @@ public class ExpAnalyzer {
             Main.pointer++;
         }
         //接下来是表达式求值 表达式已经存在stringVector里了
+        if(stringVector.size()==0){
+            Main.pointer++;
+            return "";
+        }
         res = Calculator.calculate(stringVector);
         return res;
     }
