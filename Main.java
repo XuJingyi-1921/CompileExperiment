@@ -5,7 +5,6 @@ public class Main {
     public static Vector<String> res = new Vector<>();
     public static Vector<String> vector = new Vector<>();
     public static Vector<Ident> identList = new Vector<>();
-    public static Vector<Block> blockList = new Vector<>();
     public static int pointer = 0;
     public static int counter = 0;//递增的命名号码
     public static int level = 0;//当前层数
