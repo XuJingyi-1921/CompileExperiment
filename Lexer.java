@@ -58,7 +58,7 @@ public class Lexer {
         chars.put("&","Sand");
         chars.put("|","Sor");
         chars.put("!","NOT");
-        Scanner scanner=new Scanner(new FileReader("in.txt"));
+        Scanner scanner=new Scanner(System.in);
         while(scanner.hasNextLine()){
            StringBuilder LINE= new StringBuilder(scanner.nextLine());
            StringBuilder LINE1=new StringBuilder();
