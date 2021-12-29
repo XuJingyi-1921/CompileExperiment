@@ -40,6 +40,8 @@ public class Lexer {
         chars.put(")","RPar");
         chars.put("{","LBrace");
         chars.put("}","RBrace");
+        chars.put("[","LBracket");
+        chars.put("]","RBracket");
         chars.put("+","Plus");
         chars.put("-","Minus");
         chars.put("*","Mult");
@@ -56,7 +58,7 @@ public class Lexer {
         chars.put("&","Sand");
         chars.put("|","Sor");
         chars.put("!","NOT");
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner=new Scanner(new FileReader("in.txt"));
         while(scanner.hasNextLine()){
            StringBuilder LINE= new StringBuilder(scanner.nextLine());
            StringBuilder LINE1=new StringBuilder();
@@ -163,7 +165,8 @@ public class Lexer {
                        TOKEN="";
                    }
                    if(CHAR==';'||CHAR=='('||CHAR==','||CHAR==')'||CHAR=='{'||CHAR=='}'
-                           ||CHAR=='+'||CHAR=='-'||CHAR=='*'||CHAR=='/'||CHAR=='%'){
+                           ||CHAR=='['||CHAR==']'||CHAR=='+'||CHAR=='-'
+                           ||CHAR=='*'||CHAR=='/'||CHAR=='%'){
                        TOKEN+=CHAR;
                        i++;
                        if(i>=LINE.length()){

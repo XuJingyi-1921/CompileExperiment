@@ -70,7 +70,8 @@ public class LorExpAnalyzer {
         if (vector.elementAt(Main.pointer - 1).equals("RPar") ||
                 vector.elementAt(Main.pointer - 1).charAt(0) == 'N' &&
                         vector.elementAt(Main.pointer - 1).charAt(1) == 'u' ||
-                vector.elementAt(Main.pointer - 1).charAt(0) == 'I') {
+                vector.elementAt(Main.pointer - 1).equals("RBracket")||
+        vector.elementAt(Main.pointer - 1).charAt(0) == 'I') {
             if (vector.elementAt(Main.pointer).equals("Plus")) stringVector.add("+");
             else stringVector.add("-");
         } else if (vector.elementAt(Main.pointer - 1).equals("LPar") ||

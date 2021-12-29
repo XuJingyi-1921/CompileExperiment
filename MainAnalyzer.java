@@ -14,6 +14,7 @@ public class MainAnalyzer {
                     "declare i32 @getch()\n" +
                     "declare void @putint(i32)\n" +
                     "declare void @putch(i32)\n" +
+                    "declare void @memset(i32*, i32, i32)"+
                     "declare void @putarray(i32,i32*)");
             res.add("define dso_local i32 @main()");
             res.add("{");
