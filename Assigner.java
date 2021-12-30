@@ -42,14 +42,14 @@ public class Assigner {
                     //count*=info.divs[i];
                     Main.res.add("%"+Main.counter+" = load i32, i32* %"+count);
                     Main.counter++;
-                    Main.res.add("%" + Main.counter + " = mul i32 %" + Main.counter + " , " + info.divs[i]);
+                    Main.res.add("%" + Main.counter + " = mul i32 %" + (Main.counter-1) + " , " + info.divs[i]);
                     Main.res.add("store i32 %"+Main.counter+", i32* %"+count);
                     Main.counter++;
 
                     //mount+=position[i-1]*count;
                     Main.res.add("%"+Main.counter+" = load i32, i32* %"+count);
                     Main.counter++;
-                    Main.res.add("%" + Main.counter + " = mul i32 %" + Main.counter + " , " + position[i-1]);
+                    Main.res.add("%" + Main.counter + " = mul i32 %" + (Main.counter-1) + " , " + position[i-1]);
                     Main.counter++;
                     Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
                     Main.counter++;
@@ -119,7 +119,7 @@ public class Assigner {
                     arrayVal.add(0);
                 }
             }
-            Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
+            //Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
             Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 0 , i32 0");
             Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
             for (int i = 0; i < mount; i++, Main.counter++) {
@@ -135,7 +135,7 @@ public class Assigner {
                     arrayVal2.add("0");
                 }
             }
-            Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
+            //Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
             Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ",i32 0, i32 0");
             Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
             Main.counter++;
@@ -189,6 +189,7 @@ public class Assigner {
             }
             Main.pointer++;// 跳过 }
         } else {
+
             Main.pointer++;//跳过 {
             if(vector.elementAt(Main.pointer).equals("RBrace")){
                 Main.pointer++;

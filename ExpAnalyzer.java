@@ -71,14 +71,14 @@ public class ExpAnalyzer {
                                     //count*=info.divs[i];
                                     Main.res.add("%"+Main.counter+" = load i32, i32* %"+count);
                                     Main.counter++;
-                                    Main.res.add("%" + Main.counter + " = mul i32 %" + Main.counter + " , " + info.divs[i]);
+                                    Main.res.add("%" + Main.counter + " = mul i32 %" + (Main.counter-1) + " , " + info.divs[i]);
                                     Main.res.add("store i32 %"+Main.counter+", i32* %"+count);
                                     Main.counter++;
 
                                     //mount+=position[i-1]*count;
                                     Main.res.add("%"+Main.counter+" = load i32, i32* %"+count);
                                     Main.counter++;
-                                    Main.res.add("%" + Main.counter + " = mul i32 %" + Main.counter + " , " + position[i-1]);
+                                    Main.res.add("%" + Main.counter + " = mul i32 %" + (Main.counter-1) + " , " + position[i-1]);
                                     Main.counter++;
                                     Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
                                     Main.counter++;

@@ -80,6 +80,7 @@ public class DeclareAnalyzer {
                                 Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
                                 Main.counter++;
                             } else if (vector.elementAt(Main.pointer).equals("Assign")) {
+                                Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
                                 Assigner.assignArray(vector, info, false, true, mount);
                             }
                         } else {
@@ -90,6 +91,7 @@ public class DeclareAnalyzer {
                                 Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
                                 Main.counter++;
                             } else if (vector.elementAt(Main.pointer).equals("Assign")) {
+                                Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
                                 Assigner.assignArray(vector, info, false, false, mount);
                             }
                         }
