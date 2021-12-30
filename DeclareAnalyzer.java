@@ -43,6 +43,7 @@ public class DeclareAnalyzer {
                     for (int i = 0; i < info.div; i++) {
                         mount *= info.divs[i];
                     }//转化为一维数组 mount是元素总个数
+                    info.length=mount;
                     if (isGlobal) {
                         //全局数组变量声明，此时pointer在;/,/=处，下一步处理赋值语句
                         if (isConst) {
@@ -75,7 +76,7 @@ public class DeclareAnalyzer {
                             if (vector.elementAt(Main.pointer).equals("Quote")
                                     || vector.elementAt(Main.pointer).equals("Semicolon")) {
                                 Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
-                                Main.res.add("%"+Main.counter+" = getelementptr i32, i32* %"+info.no+", i32 0");
+                                Main.res.add("%"+Main.counter+" = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %"+info.no+", i32 0");
                                 Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
                             } else if (vector.elementAt(Main.pointer).equals("Assign")) {
                                 Assigner.assignArray(vector, info, false, true, mount);
@@ -84,7 +85,7 @@ public class DeclareAnalyzer {
                             if (vector.elementAt(Main.pointer).equals("Quote")
                                     || vector.elementAt(Main.pointer).equals("Semicolon")) {
                                 Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
-                                Main.res.add("%"+Main.counter+" = getelementptr i32, i32* %"+info.no+", i32 0");
+                                Main.res.add("%"+Main.counter+" = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %"+info.no+", i32 0");
                                 Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
                             } else if (vector.elementAt(Main.pointer).equals("Assign")) {
                                 Assigner.assignArray(vector, info, false, false, mount);

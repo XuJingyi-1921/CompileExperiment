@@ -16,6 +16,7 @@ class Info{
     Boolean isArray=false;//是否是数组
     int div=0;//维数
     int[] divs={0,0,0,0,0,0,0,0,0,0};//每一维的长度，目前先定义十维
+    int length=0;
     Vector<Integer> divValues=new Vector<Integer>();//将多维数组转化为一维，值存储在divValues里
 
     public Info(Boolean isConst,int no,int level){
