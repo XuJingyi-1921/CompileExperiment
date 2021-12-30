@@ -149,27 +149,41 @@ public class Assigner {
     public static void handle(int div, int totaldiv, int[] divs, Vector<String> vector, Boolean isGlobal, Boolean isConst) {
         if (div == 1) {
             Main.pointer++;// 跳过 {
+            int length=0;
             for (int ii = 0; ii < divs[totaldiv - 1]; ii++) {
                 if (isGlobal || isConst) {
-                    if (vector.elementAt(Main.pointer).equals("Semicolon") && arrayVal.size() < divs[totaldiv - 1]) {
-                        for (int t = 0; t < divs[totaldiv - 1] - arrayVal.size(); t++) arrayVal.add(0);
-                        Main.pointer--;
+                    if (vector.elementAt(Main.pointer).equals("RBrace")) {
+                        if(length < divs[totaldiv - 1]){
+                            int rest =divs[totaldiv - 1] - length;
+                            for (int t = 0; t < rest; t++) {
+                                arrayVal.add(0);
+                                length++;
+                            }
+                        }
                         break;
                     } else {
                         int val = GlobalExpAnalyzer.expAnalyze(vector, true, isConst);
                         arrayVal.add(val);
-                        if(ii<divs[totaldiv-1]-1)Main.pointer++;//跳过 ","
+                        length++;
+                        if(!vector.elementAt(Main.pointer).equals("RBrace"))Main.pointer++;//跳过 ","
                     }
                 } else {//可以不是已知的值
-                    if (vector.elementAt(Main.pointer).equals("Semicolon") && arrayVal2.size() < divs[totaldiv - 1]) {
-                        for (int t = 0; t < divs[totaldiv - 1] - arrayVal2.size(); t++) arrayVal2.add("0");
-                        Main.pointer--;
+                    if (vector.elementAt(Main.pointer).equals("RBrace")) {
+                        if(length< divs[totaldiv - 1]){
+                            int rest =divs[totaldiv - 1] - length;
+                            for (int t = 0; t < rest; t++) {
+                                arrayVal2.add("0");
+                                length++;
+                            }
+
+                        }
                         break;
                     }
                     else {
                         String val = ExpAnalyzer.expAnalyze(vector, false);
                         arrayVal2.add(val);
-                        if(ii<divs[totaldiv-1]-1)Main.pointer++;//跳过 ","
+                        length++;
+                        if(!vector.elementAt(Main.pointer).equals("RBrace"))Main.pointer++;//跳过 ","
                     }
                 }
             }
@@ -182,7 +196,7 @@ public class Assigner {
             }
             for (int ii = 0; ii < divs[totaldiv - div]; ii++) {
                 handle(div - 1, totaldiv,divs, vector, isGlobal, isConst);
-                if(ii<divs[totaldiv-div]-1)Main.pointer++;//跳过 ","
+                if( !vector.elementAt(Main.pointer).equals("RBrace"))Main.pointer++;//跳过 ","
             }
             Main.pointer++;
         }//最后pointer在}的下一个位置
