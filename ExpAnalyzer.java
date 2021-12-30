@@ -129,18 +129,26 @@ public class ExpAnalyzer {
     }
     public static int[] getPosition(Info info ,Vector<String>vector){
         int div= info.div;
+        int flag=0;
         Main.pointer++;
         int i=0;
         int[] position= new int[10];
         while(Main.pointer<vector.size()){
             if(vector.elementAt(Main.pointer).equals("LBracket")){
+                flag++;
                 Main.pointer++;
                 position[i]=GlobalExpAnalyzer.expAnalyze(vector,true,false);
                 i++;
             }
             if(vector.elementAt(Main.pointer).equals("RBracket")){
-                Main.pointer++;
-                continue;
+                flag--;
+                if(flag==0){
+                    Main.pointer++;
+                    continue;
+                }
+                else {
+                    return position;
+                }
             }
             if(i<div)System.exit(-71);
             else return position;
@@ -149,19 +157,27 @@ public class ExpAnalyzer {
         return null;
     }
     public static String[] getPositionString(Info info ,Vector<String>vector){
+        int flag=0;
         int div= info.div;
         //Main.pointer++;
         int i=0;
         String[] position= new String[10];
         while(Main.pointer<vector.size()){
             if(vector.elementAt(Main.pointer).equals("LBracket")){
+                flag++;
                 Main.pointer++;
                 position[i]=ExpAnalyzer.expAnalyze(vector,info.isConst);
                 i++;
             }
             if(vector.elementAt(Main.pointer).equals("RBracket")){
-                Main.pointer++;
-                continue;
+                flag--;
+                if(flag==0){
+                    Main.pointer++;
+                    continue;
+                }
+               else {
+                    return position;
+                }
             }
             if(i<div)System.exit(-71);
             else return position;

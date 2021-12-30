@@ -123,7 +123,7 @@ public class Assigner {
             Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 0 , i32 0");
             Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
             for (int i = 0; i < mount; i++, Main.counter++) {
-                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* " + info.no + ", i32 0, i32 " + i);
+                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 0, i32 " + i);
                 Main.res.add("store i32 " + arrayVal.elementAt(i) + ", i32* %" + Main.counter);
                 info.divValues.add(arrayVal.elementAt(i));
             }
@@ -140,7 +140,7 @@ public class Assigner {
             Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
             Main.counter++;
             for (int i = 0; i < mount; i++, Main.counter++) {
-                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* " + info.no + ", i32 0 , i32 " + i);
+                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 0 , i32 " + i);
                 Main.res.add("store i32 " + arrayVal2.elementAt(i) + ", i32* %" + Main.counter);
             }
         }
