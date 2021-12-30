@@ -35,7 +35,7 @@ public class DeclareAnalyzer {
                 Info info;
                 if (vector.elementAt(Main.pointer + 1).equals("LBracket")) {//数组
                     Main.pointer++;
-                    info = arrayAnalyze(vector, isConst);
+                    info = arrayAnalyze(vector, isConst||isGlobal);
                     info.isArray=true;
                     ident.infos.add(0, info);
                     Main.counter++;
