@@ -65,8 +65,10 @@ public class Assigner {
                 Main.counter++;
             }
             else{
-                //mount=position[0];
+                mount--;
+                Main.res.add("%"+mount+" = alloca i32");
                 Main.res.add("store i32 "+position[0]+", i32* %"+mount);
+                Main.counter++;
             }
             //找到这个值，加入stringVector中
             Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
@@ -77,9 +79,11 @@ public class Assigner {
             else {
                 Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 %" + (Main.counter - 1));
             }
-           String res = ExpAnalyzer.expAnalyze(vector,isConst);
-           Main.res.add("store i32 " + res + ", i32* %" + Main.counter);
+            int p=Main.counter;
             Main.counter++;
+           String res = ExpAnalyzer.expAnalyze(vector,isConst);
+           Main.res.add("store i32 " + res + ", i32* %" + p);
+
         }
     }
 
@@ -134,6 +138,7 @@ public class Assigner {
             Main.res.add("%" + info.no + " = alloca [" + mount + " x i32]");
             Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 0");
             Main.res.add("call void @memset(i32* %" + Main.counter + ", i32 0, i32 " + mount * 4 + ")");
+            Main.counter++;
             for (int i = 0; i < mount; i++, Main.counter++) {
                 Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* " + info.no + ", i32 " + i);
                 Main.res.add("store i32 " + arrayVal2.elementAt(i) + ", i32* %" + Main.counter);

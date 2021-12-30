@@ -1,3 +1,4 @@
+import java.util.Objects;
 import java.util.Vector;
 
 public class LorExpAnalyzer {
@@ -54,6 +55,68 @@ public class LorExpAnalyzer {
                     if (ident != null) {
                         if (isConst && !ident.infos.elementAt(0).isConst) {
                             System.exit(-5);
+                        }
+                        if(ident.infos.elementAt(0).isArray){
+                            Info info = Objects.requireNonNull(BlockItemAnalyzer.findIdent(identName)).infos.elementAt(0);
+                            Main.pointer++;
+                            String []position=ExpAnalyzer.getPositionString(info,vector);
+                            Main.pointer--;
+                            //Main.pointer++;
+                            int div= info.div;
+                            int count=Main.counter;
+                            int mount=Main.counter+1;
+                            if(div>1){
+                                Main.res.add("%"+count+" = alloca i32");
+                                Main.res.add("store i32 1, i32* %"+count);
+                                Main.counter++;
+                                Main.res.add("%"+mount+" = alloca i32");
+                                Main.res.add("store i32 0, i32* %"+mount);
+                                Main.counter++;
+                                for(int i=div-1;i>0;i--){
+                                    //count*=info.divs[i];
+                                    Main.res.add("%"+Main.counter+" = load i32, i32* %"+count);
+                                    Main.counter++;
+                                    Main.res.add("%" + Main.counter + " = mul i32 %" + Main.counter + " , " + info.divs[i]);
+                                    Main.res.add("store i32 %"+Main.counter+", i32* %"+count);
+                                    Main.counter++;
+
+                                    //mount+=position[i-1]*count;
+                                    Main.res.add("%"+Main.counter+" = load i32, i32* %"+count);
+                                    Main.counter++;
+                                    Main.res.add("%" + Main.counter + " = mul i32 %" + Main.counter + " , " + position[i-1]);
+                                    Main.counter++;
+                                    Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
+                                    Main.counter++;
+                                    Main.res.add("%" + Main.counter + " = add i32 %" + (Main.counter-2) + " , %" + (Main.counter-1));
+                                    Main.res.add("store i32 %"+Main.counter+", i32* %"+mount);
+                                    Main.counter++;
+                                }
+                                //mount+=position[div-1];//求转换为一维数组之后的下标
+                                Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
+                                Main.counter++;
+                                Main.res.add("%" + Main.counter + " = add i32 %" + (Main.counter-1) + " , " + position[div-1]);
+                                Main.res.add("store i32 %"+Main.counter+", i32* %"+mount);
+                                Main.counter++;
+                            }
+                            else{
+                                mount--;
+                                Main.res.add("%"+mount+" = alloca i32");
+                                Main.res.add("store i32 "+position[0]+", i32* %"+mount);
+                                Main.counter++;
+                            }
+                            //找到这个值，加入stringVector中
+                            Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
+                            Main.counter++;
+                            if(info.level==0){
+                                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* @" + info.no + ", i32 %" + (Main.counter - 1));
+                            }
+                            else {
+                                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 %" + (Main.counter - 1));
+                            }
+                            Main.counter++;
+                            Main.res.add("%"+Main.counter+" = load i32, i32* %"+(Main.counter-1));
+                            identName="%"+Main.counter;
+                            Main.counter++;
                         }
                         stringVector.add(identName);
                     } else System.exit(-6);
