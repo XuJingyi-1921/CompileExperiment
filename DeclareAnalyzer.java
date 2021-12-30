@@ -35,7 +35,7 @@ public class DeclareAnalyzer {
                 Info info;
                 if (vector.elementAt(Main.pointer + 1).equals("LBracket")) {//数组
                     Main.pointer++;
-                    info = arrayAnalyze(vector, isConst||isGlobal);
+                    info = arrayAnalyze(vector, isConst);
                     info.isArray=true;
                     ident.infos.add(0, info);
                     Main.counter++;
@@ -163,7 +163,13 @@ public class DeclareAnalyzer {
                 return new Info(isConst, Main.counter, Main.level, div, divs);
             }
             Main.pointer++;
-            int val = GlobalExpAnalyzer.expAnalyze(vector, true, isConst);
+            int val;
+            if(!isConst &&Main.level==0){
+                val = GlobalExpAnalyzer.expAnalyze(vector, true, true);
+            }
+            else{
+                val = GlobalExpAnalyzer.expAnalyze(vector, true, isConst);
+            }
             Main.pointer++;
             div++;//计算维数
             divs[div - 1] = val;//记录每一维的长度
