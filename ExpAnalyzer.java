@@ -56,23 +56,26 @@ public class ExpAnalyzer {
                            int div=info.div;
                            int []position=getPosition(info,vector);//求坐标
                             Main.pointer--;
-                           int mount=0;
-                           int count=1;
-                           if(div>1){
-                               for(int i=div-1;i>0;i--){
-                                   count*=info.divs[i];
-                                   mount+=position[i-1]*count;
-                               }
-                               mount+=position[div-1];//求转换为一维数组之后的下标
-                           }
-                           else{
-                               mount=position[0];
-                           }
-                           //找到这个值，加入stringVector中
-                            Main.res.add("%"+Main.counter+" = getelementptr i32, i32* %"+info.no+", i32 "+mount);
-                           Main.counter++;
-                           Main.res.add("%"+Main.counter+"= load i32, i32* %"+(Main.counter-1));
-                           identName="%"+Main.counter;
+                            int mount=0;
+                            int count=1;
+                            if(div>1){
+                                for(int i=div-1;i>0;i--){
+                                    count*=info.divs[i];
+                                    mount+=position[i-1]*count;
+                                }
+                                mount+=position[div-1];//求转换为一维数组之后的下标
+                            }
+                            else{
+                                mount=position[0];
+                            }
+                            //找到这个值，加入stringVector中
+                            if(info.level==0){
+                                Main.res.add("%"+Main.counter+" = getelementptr i32, i32* @"+info.no+", i32 "+mount);
+                            }
+                            else Main.res.add("%"+Main.counter+" = getelementptr i32, i32* %"+info.no+", i32 "+mount);
+                            Main.counter++;
+                            Main.res.add("%"+Main.counter+"= load i32, i32* %"+(Main.counter-1));
+                            identName="%"+Main.counter;
                             Main.counter++;
                         }
                         stringVector.add(identName);

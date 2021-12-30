@@ -71,7 +71,12 @@ public class Assigner {
             //找到这个值，加入stringVector中
             Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
             Main.counter++;
-            Main.res.add("%"+Main.counter+" = getelementptr i32, i32* %"+info.no+", i32 %"+(Main.counter-1));
+            if(info.level==0){
+                Main.res.add("%" + Main.counter + " = getelementptr i32, i32* @" + info.no + ", i32 %" + (Main.counter - 1));
+            }
+            else {
+                Main.res.add("%" + Main.counter + " = getelementptr i32, i32* %" + info.no + ", i32 %" + (Main.counter - 1));
+            }
            String res = ExpAnalyzer.expAnalyze(vector,isConst);
            Main.res.add("store i32 " + res + ", i32* %" + Main.counter);
             Main.counter++;
