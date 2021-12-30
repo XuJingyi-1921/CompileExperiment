@@ -108,10 +108,10 @@ public class LorExpAnalyzer {
                             Main.res.add("%"+Main.counter+" = load i32, i32* %"+mount);
                             Main.counter++;
                             if(info.level==0){
-                                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* @" + info.no + ", i32 %" + (Main.counter - 1));
+                                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* @" + info.no + ", i32 0, i32 %" + (Main.counter - 1));
                             }
                             else {
-                                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 %" + (Main.counter - 1));
+                                Main.res.add("%" + Main.counter + " = getelementptr ["+info.length+" x i32], ["+info.length+" x i32]* %" + info.no + ", i32 0, i32 %" + (Main.counter - 1));
                             }
                             Main.counter++;
                             Main.res.add("%"+Main.counter+" = load i32, i32* %"+(Main.counter-1));
