@@ -9,7 +9,8 @@ public class Main {
     public static int counter = 0;//递增的命名号码
     public static int level = 0;//当前层数
     public static boolean inCycle = false;
-    public static int head=0,tail=0;
+    public static Vector<Integer>head=new Vector<>();
+    public static Vector<Integer>tail=new Vector<>();
 
     public static void main(String[] args) throws FileNotFoundException {
         Lexer.lexer(vector);//词法分析，将全部token存入向量中。

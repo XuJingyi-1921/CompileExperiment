@@ -43,7 +43,12 @@ public class CycleAnalyzer {
                 Main.counter++;
                 Main.res.add("");
                 Main.res.add("block" + Main.pointer + ":");
-                BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, Main.head, Main.tail);//现在pointer在‘}’+1处
+                if(Main.head.size()==0||Main.tail.size()==0){
+                    BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, 0, 0);//现在pointer在‘}’+1处
+                }
+               else{
+                    BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, Main.head.lastElement(), Main.tail.lastElement());//现在pointer在‘}’+1处
+                }
                 endNum = 0;
                 flag = 0;
                 if (!vector.elementAt(Main.pointer).equals("Else")) {//不是else 对应上面的
@@ -76,7 +81,12 @@ public class CycleAnalyzer {
             } else if (vector.elementAt(Main.pointer + 1).equals("LBrace")) {
                 Main.pointer++;
                 Main.res.add("block" + Main.pointer + ":");
-                BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, Main.head, Main.tail);
+                if(Main.head.size()==0||Main.tail.size()==0){
+                    BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, 0, 0);//现在pointer在‘}’+1处
+                }
+                else{
+                    BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, Main.head.lastElement(), Main.tail.lastElement());//现在pointer在‘}’+1处
+                }
                 Main.res.add("br label %block" + (Main.pointer + 1));
                 Main.res.add("");
                 Main.res.add("block" + (Main.pointer + 1) + ":");
@@ -116,11 +126,12 @@ public class CycleAnalyzer {
                 Main.res.add("");
                 Main.res.add("blockw" + Main.pointer + ":");
                 int prev_pointer = Main.pointer;
-                Main.head=head;Main.tail=tail;
+                Main.head.add(head);Main.tail.add(tail);
                 BlockItemAnalyzer.blockItemAnalyze(vector, Main.inCycle, head, tail);//现在pointer在‘}’+1处
                 Main.res.add("br label %blockw" + head);
                 Main.inCycle=false;
-                Main.head=Main.tail=0;
+                Main.head.remove(Main.head.lastElement());
+                Main.tail.remove(Main.tail.lastElement());
                 if (Main.pointer > prev_pointer) {
                     Main.res.add("br label %blockw" + (Main.pointer - 1));
                     Main.res.add("");
