@@ -97,6 +97,9 @@ public class DeclareAnalyzer {
                         }
                         Main.identList.add(ident);
                     }
+                    if(vector.elementAt(Main.pointer).equals("Quote")){
+                        Main.pointer++;
+                    }
                 } else {
                     info = new Info(isConst, Main.counter, Main.level);
                     ident.infos.add(0, info);
