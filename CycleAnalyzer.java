@@ -38,7 +38,7 @@ public class CycleAnalyzer {
                         }
                     }
                 }
-                Main.res.add("%" + Main.counter + " = icmp eq i32 " + s + ", 1");
+                Main.res.add("%" + Main.counter + " = icmp sge i32 " + s + ", 1");
                 Main.res.add("br i1 %" + Main.counter + ", label %block" + Main.pointer + ", label %block" + endNum);//testing
                 Main.counter++;
                 Main.res.add("");
@@ -119,7 +119,7 @@ public class CycleAnalyzer {
                         }
                     }
                 }
-                Main.res.add("%" + Main.counter + " = icmp eq i32 " + s + ", 1");
+                Main.res.add("%" + Main.counter + " = icmp sge i32 " + s + ", 1");
                 Main.res.add("br i1 %" + Main.counter + ", label %blockw" + Main.pointer + ", label %blockw" + endNum);//
                 tail = endNum;
                 Main.counter++;
