@@ -314,11 +314,11 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + b + " , 0");
-                Main.counter++;
-                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + a + " , 0");
-                Main.counter++;
-                Main.res.add("%" + Main.counter + " = and i1 " + (Main.counter-1) + " , " +(Main.counter-2));//eg. %3 = and i32 %1 , %2
+//                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + b + " , 0");
+//                Main.counter++;
+//                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + a + " , 0");
+//                Main.counter++;
+                Main.res.add("%" + Main.counter + " = and i32 " + (a) + " , " +(b));//eg. %3 = and i32 %1 , %2
                 Main.counter++;
                 Main.res.add("%" + Main.counter + " = zext i1 " + "%"+(Main.counter-1)+" to i32");
                 number.push("%" + Main.counter);//计算完的值压栈
@@ -331,11 +331,11 @@ public class Calculator {//计算表达式的值，这里单独拎出来封装�
                 }
                 b = parser(number.pop());
                 a = parser(number.pop());
-                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + b + " , 0");
-                Main.counter++;
-                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + a + " , 0");
-                Main.counter++;
-                Main.res.add("%" + Main.counter + " = or i1 " + (Main.counter-1) + " , " +(Main.counter-2));//eg. %3 = or i32 %1 , %2
+//                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + b + " , 0");
+//                Main.counter++;
+//                Main.res.add("%" + Main.counter + " = icmp sgt i32 " + a + " , 0");
+//                Main.counter++;
+                Main.res.add("%" + Main.counter + " = or i32 " + (a) + " , " +(b));//eg. %3 = or i32 %1 , %2
                 Main.counter++;
                 Main.res.add("%" + Main.counter + " = zext i1 " + "%"+(Main.counter-1)+" to i32");
                 number.push("%" + Main.counter);//计算完的值压栈
