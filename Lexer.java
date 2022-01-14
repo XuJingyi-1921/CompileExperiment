@@ -7,20 +7,19 @@ import java.util.Vector;
 public class Lexer {
     static Hashtable<String, String> chars= new Hashtable<>();
      static void printToken(String s, Vector<String>vector){
-        //System.out.println(s);
         if(chars.get(s)!=null){
             String res= chars.get(s);
             vector.add(res);
-        //    System.out.println(res);
+            //System.out.println(res);
         }
         else{
             if(Character.isDigit(s.charAt(0))){
                 vector.add("Number("+s+")");
-            //    System.out.println("Number("+s+")");
+                //System.out.println("Number("+s+")");
             }
             else{
                 vector.add("Ident("+s+")");
-            //    System.out.println("Ident("+s+")");
+               // System.out.println("Ident("+s+")");
                 }
         }
     }
@@ -41,14 +40,24 @@ public class Lexer {
         chars.put(")","RPar");
         chars.put("{","LBrace");
         chars.put("}","RBrace");
+        chars.put("[","LBracket");
+        chars.put("]","RBracket");
         chars.put("+","Plus");
         chars.put("-","Minus");
         chars.put("*","Mult");
         chars.put("/","Div");
         chars.put("%","Mod");
         chars.put("<","Lt");
+        chars.put("<=","LE");
         chars.put(">","Gt");
+        chars.put(">=","GE");
         chars.put("==","Eq");
+        chars.put("!=","NEq");
+        chars.put("||","OR");
+        chars.put("&&","AND");
+        chars.put("&","Sand");
+        chars.put("|","Sor");
+        chars.put("!","NOT");
         Scanner scanner=new Scanner(new FileReader("in.txt"));
         while(scanner.hasNextLine()){
            StringBuilder LINE= new StringBuilder(scanner.nextLine());
@@ -119,7 +128,7 @@ public class Lexer {
                        }
                        TOKEN="";//初始化TOKEN
                    }
-                   if (CHAR == '=') {
+                   if (CHAR == '='||CHAR == '|'||CHAR == '&') {
                        TOKEN+=CHAR;
                        while(true){
                            i++;
@@ -130,7 +139,7 @@ public class Lexer {
                            }
                            else{//没有读完
                                CHAR=LINE.charAt(i);
-                               if(CHAR=='='&&TOKEN.length()<=1){
+                               if((CHAR=='='||CHAR=='|'||CHAR=='&')&&TOKEN.length()<=1){
                                    TOKEN+=CHAR;
                                }
                                else{
@@ -141,8 +150,23 @@ public class Lexer {
                        }
                        TOKEN="";//初始化TOKEN
                    }
+                   if(CHAR=='<'||CHAR=='>'||CHAR=='!'){
+                       TOKEN+=CHAR;
+                       i++;
+                       if(LINE.charAt(i)=='='){
+                           TOKEN+=LINE.charAt(i);
+                           printToken(TOKEN,vector);
+                           i++;
+                       }
+                       else{
+                           printToken(TOKEN,vector);
+                       }
+                       CHAR=LINE.charAt(i);
+                       TOKEN="";
+                   }
                    if(CHAR==';'||CHAR=='('||CHAR==','||CHAR==')'||CHAR=='{'||CHAR=='}'
-                           ||CHAR=='+'||CHAR=='-'||CHAR=='*'||CHAR=='/'||CHAR=='%'||CHAR=='<'||CHAR=='>'){
+                           ||CHAR=='['||CHAR==']'||CHAR=='+'||CHAR=='-'
+                           ||CHAR=='*'||CHAR=='/'||CHAR=='%'){
                        TOKEN+=CHAR;
                        i++;
                        if(i>=LINE.length()){
@@ -167,8 +191,7 @@ public class Lexer {
                        }
                    }
                    else if(chars.get(""+CHAR) == null && !Character.isDigit(CHAR) && !Character.isLetter(CHAR) && CHAR != '_'&&CHAR>=32){
-                   //    System.out.println("Err");
-                       System.exit(-1);
+                       System.exit(-1);//Err
                    }
                }
            }
